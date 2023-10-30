@@ -1,0 +1,7 @@
+- Create a Github repo
+- In terminal: git clone [repo URL]
+- (Make sure you're inside the folder where the .git folder is)
+- git status to check everything works
+- git add . or git add [file name]
+- git commit -m "Description of changes"
+- git push origin master (Pushed to master; your code > master)
