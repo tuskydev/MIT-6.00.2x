@@ -1,5 +1,5 @@
-# DESCRIPTIVE-TITLE Solo Project 
-### A repo made to test Semantic-UI-React's NPM that has a popup modal that display's necessary info.
+# MIT 6.00.2x Study Solo Project 
+### A repo made to record and display all work for MIT's 6.00.2x assignments and work.
 
 ### Things learned:
 * Learned how to make functionality for className "active" in navs and tabs
