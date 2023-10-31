@@ -1,0 +1,42 @@
+In a list of any kind there are 2^n permutations possible.
+
+- In the example of a list such as: [a, b, c, d]
+- There are 2^4 possible permutations (16)
+
+Lets draw these out to have a clearer picture.
+
+0 decimal is 000 binary - no items chosen, []
+1 decimal is 001 binary - ['c']
+2 decimal is 010 binary - ['b']
+3 decimal is 011 binary - ['b', 'c']
+4 decimal is 100 binary - ['a']
+5 decimal is 101 binary - ['a', 'c']
+6 decimal is 110 binary - ['a', 'b']
+7 decimal is 111 binary - ['a', 'b', 'c']
+
+8 decimal is 1000 binary - ['a']
+9 decimal is 1001 binary - ['a','d']
+10 decimal is 1010 binary - ['a', 'c']
+11 decimal is 1011 binary - ['a', 'c', 'd']
+12 decimal is 1100 binary - ['a', 'b']
+13 decimal is 1101 binary - ['a', 'b', 'd']
+14 decimal is 1110 binary - ['a', 'b', 'c']
+15 decimal is 1111 binary - ['a', 'b', 'c', 'd']
+
+---
+
+Possible permutations in 2 bags:
+- We know that for one bag it's 2^n
+
+[], []
+['a'], []
+[], ['a']
+['b'], []
+[], ['b']
+['a'], ['b']
+['b'], ['a']
+['b', 'a'], []
+[], ['b', 'a']
+
+My guess is the formula for two bags is: 2(2^n)+1
+WRONG (😭): Answer is: 3^n

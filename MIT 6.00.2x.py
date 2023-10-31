@@ -72,9 +72,10 @@ def powerSet(items):
     for j in range(N):
       # test bit jth of integer i
       if (i >> j) % 2 == 1:
-        # print("THIS IS IT: ", i, j)
         combo.append(items[j])
+      # print(bin(i), i, j, i >> j)
     yield combo
+
 
 def yieldAllCombos(items):
   """
@@ -84,8 +85,23 @@ def yieldAllCombos(items):
     Yields a tuple, (bag1, bag2), where each bag is represented as
     a list of which item(s) are in each bag.
   """
+  N = len(items)
 
+  for i in range(3**N):
+    combo = ([], [])
+    for j in range(N):
+      if (i >> j) % 2 == 1:
+        # It goes in first bag
+        combo[0].append(items[j])
+      elif (i >> j) == 0:
+        pass
+      elif (i >> j) % 2 == 0:
+        # print("hello world!")
+        combo[1].append(items[j])
+    yield combo
 
+for i in powerSet(["a", "b"]):
+  print(i)
 
-for blunt in powerSet([1,2,3]):
-  print("this is blunt,", blunt)
+# for i in yieldAllCombos(["a", "b"]):
+#   print(i)
