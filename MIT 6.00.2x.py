@@ -57,24 +57,24 @@ def look_for_things(myList):
 
 # print(look_for_all_the_things([1,2,4]))
 
-print(1%2)
+# ---
+
+# print(1%2)
+
+# ---
 
 # generate all combinations of N items
-# def powerSet(items):
-#   N = len(items)
-#   # enumerate the 2**N possible combinations
-#   for i in range(2**N):
-#     print(i, "this is I")
-#     combo = []
-#     for j in range(N):
-#       print(j, "this is J")
-#       # test bit jth of integer i
-#       if (i >> j) % 2 == 1:
-#         print("THIS IS IT: ", i, j)
-#         combo.append(items[j])
-#       print(combo)
-
-# print(powerSet([1,2,3]))
+def powerSet(items):
+  N = len(items)
+  # enumerate the 2**N possible combinations
+  for i in range(2**N):
+    combo = []
+    for j in range(N):
+      # test bit jth of integer i
+      if (i >> j) % 2 == 1:
+        # print("THIS IS IT: ", i, j)
+        combo.append(items[j])
+    yield combo
 
 def yieldAllCombos(items):
   """
@@ -86,3 +86,6 @@ def yieldAllCombos(items):
   """
 
 
+
+for blunt in powerSet([1,2,3]):
+  print("this is blunt,", blunt)
