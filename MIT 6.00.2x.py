@@ -84,7 +84,7 @@ def decimal_to_ternary(decimal, length):
 
   if decimal == 0:
     while len(result) != length:
-       result = "0" + result
+      result = "0" + result
 
   while decimal > 0:
     remainder = decimal % 3
