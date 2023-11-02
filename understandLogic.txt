@@ -5,15 +5,14 @@ In a list of any kind there are 2^n permutations possible.
 
 Lets draw these out to have a clearer picture.
 
-0 decimal is 000 binary - no items chosen, []
-1 decimal is 001 binary - ['c']
-2 decimal is 010 binary - ['b']
-3 decimal is 011 binary - ['b', 'c']
-4 decimal is 100 binary - ['a']
-5 decimal is 101 binary - ['a', 'c']
-6 decimal is 110 binary - ['a', 'b']
-7 decimal is 111 binary - ['a', 'b', 'c']
-
+0 decimal is 0000 binary - no items chosen, []
+1 decimal is 0001 binary - ['b']
+2 decimal is 0010 binary - ['a']
+3 decimal is 0011 binary - ['a', 'b']
+4 decimal is 0100 binary - ['b']
+5 decimal is 0101 binary - ['b', 'd']
+6 decimal is 0110 binary - ['b', 'c']
+7 decimal is 0111 binary - ['b', 'c', 'd']
 8 decimal is 1000 binary - ['a']
 9 decimal is 1001 binary - ['a','d']
 10 decimal is 1010 binary - ['a', 'c']
@@ -28,6 +27,19 @@ Lets draw these out to have a clearer picture.
 Possible permutations in 2 bags:
 - We know that for one bag it's 2^n
 
+My guess is the formula for two bags is: 2(2^n)+1
+WRONG (😭): Answer is: 3^n
+
+0 decimal is 00 ternary - no items chosen, [], []
+1 decimal is 01 ternary - ['b'], []
+2 decimal is 02 ternary - [], ['b']
+3 decimal is 10 ternary - ['a'], []
+4 decimal is 11 ternary - ['a', 'b'], []
+5 decimal is 12 ternary - ['a'], ['b']
+6 decimal is 20 ternary - [], ['a']
+7 decimal is 21 ternary - ['b'], ['a']
+8 decimal is 22 ternary - [], ['a', 'b']
+
 [], []
 ['a'], []
 [], ['a']
@@ -37,6 +49,3 @@ Possible permutations in 2 bags:
 ['b'], ['a']
 ['b', 'a'], []
 [], ['b', 'a']
-
-My guess is the formula for two bags is: 2(2^n)+1
-WRONG (😭): Answer is: 3^n

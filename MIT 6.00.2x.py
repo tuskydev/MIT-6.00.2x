@@ -63,65 +63,69 @@
 
 # # ---
 
-# generate all combinations of N items
-def powerSet(items):
-  N = len(items)
-  # enumerate the 2**N possible combinations
-  for i in range(2**N):
-    combo = []
-    for j in range(N):
-      # print("this is i and j:", bin(i), j)
-      # test bit jth of integer i
-      if (i >> j) % 2 == 1:
-        combo.append(items[j])
-        print(i, j, "THIS ONE DID IT")
-      print(i, j)
-    yield combo
+# # generate all combinations of N items
+# def powerSet(items):
+#   N = len(items)
+#   # enumerate the 2**N possible combinations
+#   for i in range(2**N):
+#     combo = []
+#     for j in range(N):
+#       # print("this is i and j:", bin(i), j)
+#       # test bit jth of integer i
+#       if (i >> j) % 2 == 1:
+#         combo.append(items[j])
+#         print(i, j, "THIS ONE DID IT")
+#       print(i, j)
+#     yield combo
 
-def decimal_to_ternary(decimal, length):
-  ## THIS FUNCTION CONVERTS DECIMAL DIGITS INTO TERNARY DIGITS
-  result = ''
+# def decimal_to_ternary(decimal, length):
+#   ## THIS FUNCTION CONVERTS DECIMAL DIGITS INTO TERNARY DIGITS
+#   result = ''
 
-  if decimal == 0:
-    while len(result) != length:
-      result = "0" + result
+#   if decimal == 0:
+#     while len(result) != length:
+#       result = "0" + result
 
-  while decimal > 0:
-    remainder = decimal % 3
-    result = str(remainder) + result
-    decimal = decimal // 3
+#   while decimal > 0:
+#     remainder = decimal % 3
+#     result = str(remainder) + result
+#     decimal = decimal // 3
 
-  if length == len(result):
-    return result
-  else:
-    while len(result) != length:
-      result = "0" + result
+#   if length == len(result):
+#     return result
+#   else:
+#     while len(result) != length:
+#       result = "0" + result
 
-    return result
+#     return result
 
-def yieldAllCombos(items):
-  """
-    Generates all combinations of N items into two bags, whereby each
-    item is in one or zero bags.
+# def yieldAllCombos(items):
+#   """
+#     Generates all combinations of N items into two bags, whereby each
+#     item is in one or zero bags.
 
-    Yields a tuple, (bag1, bag2), where each bag is represented as a list
-    of which item(s) are in each bag.
-  """
-  N = len(items)
+#     Yields a tuple, (bag1, bag2), where each bag is represented as a list
+#     of which item(s) are in each bag.
+#   """
+#   N = len(items)
 
-  for i in range(3**N):
-    i = decimal_to_ternary(i, N)
-    combo = ([], [])
+#   for i in range(3**N):
+#     i = decimal_to_ternary(i, N)
+#     combo = ([], [])
 
-    for index, j in enumerate(i):
-      if int(j) == 1:
-        combo[0].append(items[index])
-      elif int(j) == 2:
-        combo[1].append(items[index])
+#     for index, j in enumerate(i):
+#       if int(j) == 1:
+#         combo[0].append(items[index])
+#       elif int(j) == 2:
+#         combo[1].append(items[index])
 
-    yield combo
+#     yield combo
 
-items = ['a', 'b', 'c', 'd', 'e', 'f']
+# items = ['a', 'b', 'c', 'd', 'e', 'f']
 
-for index, i in enumerate(yieldAllCombos(items)):
-  print(i)
+# for index, i in enumerate(yieldAllCombos(items)):
+#   print(i)
+
+# ---
+
+
