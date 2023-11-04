@@ -4,7 +4,7 @@
 ### Things learned:
 * Using ternary digits to find unique combinations of putting items in two bags (**Knapsack problem**)
 * Working with graph theory and nodes to assess weighted edges using DFS/BFS algorithms
-* 
+* Tinkering with Tkinter (get it?)
 
 ### Overall, a productive project that enabled me to enhance my coding logic specifically in Python.
 
@@ -15,20 +15,16 @@
 ### Image of the Pop-up-Bar's integrated and dynamic Carousel 
 ![image](https://user-images.githubusercontent.com/52723004/93537444-7d4e3f00-f919-11ea-94d4-43ab6a3205a9.png)
 
-## KEY NOTES:
-* This will require
-`from tkinter import *
-from tkinter import ttk` for certain parts of the project (make sure your Python is up to date)
-* Matplotlib as well if you want to see certain graphs. `npm install matplotlib`
-* 
+## Key Notes:
+* This will require Tkinter for certain parts of the project (make sure your Python is up to date)
+* Matplotlib as well if you want to see certain graphs.
 
-## If you'd like to join MIT 6.00.2x via EdX: [MIT Course Join](https://www.edx.org/learn/computer-science/massachusetts-institute-of-technology-introduction-to-computational-thinking-and-data-science)
+## To recreate this on your own machine:
 
 ### In console:
 `
 npm install tkinter
 `
-
 `
 npm install matplotlib
 `
@@ -38,7 +34,6 @@ npm install matplotlib
 from tkinter import *
 from tkinter import ttk
 ```
-
 ```
 import pylab as plt
 * the rest is depending on the graph you decide to do
@@ -51,3 +46,7 @@ import pylab as plt
 [Official Tkinter Website](https://tkdocs.com/)
 
 [Matplotlib Docs](https://matplotlib.org/stable/users/explain/quick_start.html)
+
+---
+
+## If you'd like to join MIT 6.00.2x via EdX: [MIT Course Join](https://www.edx.org/learn/computer-science/massachusetts-institute-of-technology-introduction-to-computational-thinking-and-data-science)
