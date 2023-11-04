@@ -48,6 +48,6 @@ import pylab as plt
 
 [Tkinter Docs](https://docs.python.org/3/library/tkinter.html)
 
-[Official Tkiner Website](https://tkdocs.com/)
+[Official Tkinter Website](https://tkdocs.com/)
 
 [Matplotlib Docs](https://matplotlib.org/stable/users/explain/quick_start.html)
