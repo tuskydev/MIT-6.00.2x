@@ -2,52 +2,51 @@
 ### A repo made to record and display all work for MIT's 6.00.2x assignments and work.
 
 ### Things learned:
-* Learned how to make functionality for className "active" in navs and tabs
-* Sharpened React JSX and CSS Flexbox skills.
-* Learned how to combine two personal Solo Projects to make one dynamic project!
+* Using ternary digits to find unique combinations of putting items in two bags (**Knapsack problem**)
+* Working with graph theory and nodes to assess weighted edges using DFS/BFS algorithms
+* Tinkering with Tkinter (get it?)
 
-### Overall, a productive project which allowed for better understanding of Pop Up Modals.
+### Overall, a productive project that enabled me to enhance my coding logic specifically in Python.
 
 ## Preview of work done:
-### Image of Pop-up-Bar displaying dynamic info and picures
-![image](https://user-images.githubusercontent.com/52723004/93537418-6b6c9c00-f919-11ea-80de-e61a76117757.png)
+### Ternary digits being matched to their unique permutation
+![image](https://github.com/tuskydev/MIT-6.00.2x/assets/52723004/ee520b02-72ab-4f52-9fbd-47462fcae3bb)
 
 ### Image of the Pop-up-Bar's integrated and dynamic Carousel 
 ![image](https://user-images.githubusercontent.com/52723004/93537444-7d4e3f00-f919-11ea-94d4-43ab6a3205a9.png)
 
-## KEY NOTES: ONLYADDIFYOUNEEDDISCLAIMERS!!!
-* The first Carousel was made with Bootstrap NPM 
-* The second Carousel was made with Alice-Carousel NPM in a `Class` Component 
-* The third Carousel was made with Alice-Carousel NPM in a `Function` Component 
+## Key Notes:
+* This will require Tkinter for certain parts of the project (make sure your Python is up to date)
+* Matplotlib as well if you want to see certain graphs.
 
-## Steps to recreate:
+## To recreate this on your own machine:
 
 ### In console:
 `
-npm install semantic-ui-react semantic-ui-css
+npm install tkinter
+`
+`
+npm install matplotlib
 `
 
-`
-npm i react-alice-carousel
-`
-
-### Add these lines to the App.js file:
+### Add these lines at the start of your Python file:
 ```
-import {
-  Checkbox,
-  Sidebar,
-} from 'semantic-ui-react';
-import AliceCarousel from 'react-alice-carousel';
-
-import 'semantic-ui-css/semantic.min.css';
-import 'react-alice-carousel/lib/alice-carousel.css';
+from tkinter import *
+from tkinter import ttk
+```
+```
+import pylab as plt
+* the rest is depending on the graph you decide to do
 ```
 
 ### Choose any example code from the Docs here and adjust to the best fit.
-`
-https://react.semantic-ui.com/usage
-`
 
-`
-https://www.npmjs.com/package/react-alice-carousel
-`
+[Tkinter Docs](https://docs.python.org/3/library/tkinter.html)
+
+[Official Tkinter Website](https://tkdocs.com/)
+
+[Matplotlib Docs](https://matplotlib.org/stable/users/explain/quick_start.html)
+
+---
+
+## If you'd like to join MIT 6.00.2x via EdX: [MIT Course Join](https://www.edx.org/learn/computer-science/massachusetts-institute-of-technology-introduction-to-computational-thinking-and-data-science)
