@@ -130,9 +130,24 @@ def yieldAllCombos(items):
 
 ## We will check the zero index or the second index
 
-ABC ACB
-ABC BAC
-ACB CAB
-BAC BCA
-BCA CBA
-CAB CBA
+# nodeList = []
+# for node in nodes:
+#   for n in nodes:
+#     if node.getName()[0] == n.getName()[0] \
+#       or node.getName()[2] == n.getName()[2]:
+#       nodeList.append([node, n])
+
+# tempList = []
+# finalList = []
+
+# for n in nodeList:
+#   tempList.append([n[1], n[0]])
+#   if [n[0], n[1]] not in tempList:
+#     finalList.append([n[0], n[1]])
+
+# for n in finalList:
+#   g.addEdge(Edge(n[0], n[1]))
+
+# ---
+
+## Starting work on problem 3.7
