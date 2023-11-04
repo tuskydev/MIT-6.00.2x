@@ -150,4 +150,19 @@ def yieldAllCombos(items):
 
 # ---
 
-## Starting work on problem 3.7
+## Starting work on problem 3.7; Answer below:
+
+# class WeightedEdge(Edge):
+#   def __init__(self, src, dest, weight):
+#     self.weight = weight
+#     self.src = src
+#     self.dest = dest
+#   def getWeight(self):
+#     return self.weight
+#   def __str__(self):
+#     return self.src.getName() + '->' + self.dest.getName() \
+#       + " (" + str(self.weight) + ")"
+
+#  ---
+
+
