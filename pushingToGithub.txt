@@ -5,3 +5,7 @@
 - git add . or git add [file name]
 - git commit -m "Description of changes"
 - git push origin master (Pushed to master; your code > master)
+
+NEAT TRICK to check directory you're in:
+print("\n\nworking directory is:", __import__('os').getcwd())
+print('program ran')
