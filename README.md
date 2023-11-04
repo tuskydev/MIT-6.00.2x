@@ -22,7 +22,7 @@ from tkinter import ttk` for certain parts of the project (make sure your Python
 * Matplotlib as well if you want to see certain graphs. `npm install matplotlib`
 * 
 
-## Steps to recreate:
+## If you'd like to join MIT 6.00.2x via EdX: [MIT Course Join](https://www.edx.org/learn/computer-science/massachusetts-institute-of-technology-introduction-to-computational-thinking-and-data-science)
 
 ### In console:
 `
