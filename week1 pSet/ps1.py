@@ -54,8 +54,26 @@ def greedy_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    
+    cowList = sorted([[k,v] for k,v in cows.items()], key=lambda x: x[1], reverse=True)
+    cowDict = cows.copy()
+    cowTrips = []
+    currTrip = []
+    limitCount = 0
+    print("this is cowlist:", cowList)
+    for _ in cowList:
+        for k, v in cowList:
+            if k in cowDict:
+                if limitCount + v <= limit:
+                    limitCount += v
+                    currTrip.append(k)
+                    cowDict.pop(k)
 
+        if currTrip:
+            cowTrips.append(currTrip)
+        limitCount = 0
+        currTrip = []
+
+    return cowTrips
 
 # Problem 2
 def brute_force_cow_transport(cows,limit=10):
@@ -110,7 +128,7 @@ cows = load_cows("./week1 pSet/ps1_cow_data.txt")
 limit=100
 print(cows)
 
-print(greedy_cow_transport(cows, limit))
-# print(brute_force_cow_transport(cows, limit))
+# print(greedy_cow_transport(cows, limit))
+print(brute_force_cow_transport(cows, limit))
 
 

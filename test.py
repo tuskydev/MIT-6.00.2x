@@ -1,5 +1,7 @@
-kvlist = [(1, 1), (2, 4), (3, 9), (4, 16), (5, 25), (6, 36)]
+kvlist = [['Betsy', 9], ['Henrietta', 9], ['Herman', 7], ['Oreo', 6], ['Millie', 5], ['Maggie', 3], ['Moo Moo', 3], ['Milkshake', 2], ['Lola', 2], ['Florence', 2]]
 
-kvrlist = sorted(kvlist, key=lambda x: -x)
+kvlist = sorted(kvlist, key=lambda x: -x[1])
 
-print(kvrlist)
+indexToRemove = kvlist[0].index("Betsy")
+
+print(indexToRemove)
