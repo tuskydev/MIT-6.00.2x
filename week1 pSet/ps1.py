@@ -59,7 +59,7 @@ def greedy_cow_transport(cows,limit=10):
     cowTrips = []
     currTrip = []
     limitCount = 0
-    print("this is cowlist:", cowList)
+
     for _ in cowList:
         for k, v in cowList:
             if k in cowDict:
@@ -96,8 +96,32 @@ def brute_force_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
+    minTrip = None
+    chosenSet = None
+
+    for set in get_partitions(cows):
+        flag = True
+        for oneTrip in set:
+            count = 0
+            for cow in oneTrip:
+                count += cows[cow]
+                if count > limit:
+                    flag = False
+                    break # Break out of the inner loop
+            else:
+                continue # Continue to the next iteration of the outer loop
+            break # If the inner loop was broken, also break out of the outer loop
+
+        if flag:
+            if minTrip == None:
+                minTrip = len(set)
+                chosenSet = set
+            elif len(set) < minTrip:
+                minTrip = len(set)
+                chosenSet = set
+
+    return minTrip, chosenSet
+
 
 
 # Problem 3
@@ -114,8 +138,16 @@ def compare_cow_transport_algorithms():
     Returns:
     Does not return anything.
     """
-    # TODO: Your code here
-    pass
+    start = time.time()
+    greedy_cow_transport(load_cows("./week1 pSet/ps1_cow_data.txt"))
+    end = time.time()
+    print(end - start)
+    #  ---
+    start = time.time()
+    brute_force_cow_transport(load_cows("./week1 pSet/ps1_cow_data.txt"))
+    end = time.time()
+    print(end - start)
+
 
 
 """
@@ -126,9 +158,10 @@ lines to print the result of your problem.
 
 cows = load_cows("./week1 pSet/ps1_cow_data.txt")
 limit=100
-print(cows)
+# print(cows)
+longCows = {'Louis': 45, 'Muscles': 65, 'MooMoo': 85, 'Horns': 50, 'Milkshake': 75, 'Clover': 5, 'Polaris': 20, 'Lotus': 10, 'Miss Bella': 15, 'Patches': 60}
 
 # print(greedy_cow_transport(cows, limit))
-print(brute_force_cow_transport(cows, limit))
-
+# print(brute_force_cow_transport(longCows, limit))
+compare_cow_transport_algorithms()
 
