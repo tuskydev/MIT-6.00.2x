@@ -54,8 +54,7 @@ def greedy_cow_transport(cows,limit=10):
     transported on a particular trip and the overall list containing all the
     trips
     """
-    # TODO: Your code here
-    pass
+    
 
 
 # Problem 2
@@ -112,6 +111,6 @@ limit=100
 print(cows)
 
 print(greedy_cow_transport(cows, limit))
-print(brute_force_cow_transport(cows, limit))
+# print(brute_force_cow_transport(cows, limit))
 
 
