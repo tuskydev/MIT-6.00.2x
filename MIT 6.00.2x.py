@@ -165,4 +165,16 @@ def yieldAllCombos(items):
 
 #  ---
 
+import random
+
+
+def genEven():
+    '''
+    Returns a random even number x, where 0 <= x < 100
+    '''
+    rangeList = [num for num in range(0, 100, 2)]
+
+    return random.choice(rangeList)
+
+print(genEven())
 
