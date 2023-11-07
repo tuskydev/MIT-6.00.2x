@@ -165,16 +165,30 @@ def yieldAllCombos(items):
 
 #  ---
 
+# import random
+
+
+# def genEven():
+#     '''
+#     Returns a random even number x, where 0 <= x < 100
+#     '''
+#     return random.choice([num for num in range(0, 100, 2)])
+
+# print(genEven())
+
+#  ---
+
 import random
 
 
-def genEven():
+def deterministicNumber():
     '''
-    Returns a random even number x, where 0 <= x < 100
+    Deterministically generates and returns an even number between 9 and 21
     '''
-    rangeList = [num for num in range(0, 100, 2)]
+    randInt = random.choice([num for num in range(9, 22)])
 
-    return random.choice(rangeList)
+    while randInt % 2 == 1:
+      return deterministicNumber()
+    return randInt
 
-print(genEven())
-
+print(deterministicNumber())
