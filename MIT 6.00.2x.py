@@ -78,48 +78,48 @@
 #       print(i, j)
 #     yield combo
 
-def decimal_to_ternary(decimal, length):
-  ## THIS FUNCTION CONVERTS DECIMAL DIGITS INTO TERNARY DIGITS
-  result = ''
+# def decimal_to_ternary(decimal, length):
+#   ## THIS FUNCTION CONVERTS DECIMAL DIGITS INTO TERNARY DIGITS
+#   result = ''
 
-  if decimal == 0:
-    while len(result) != length:
-      result = "0" + result
+#   if decimal == 0:
+#     while len(result) != length:
+#       result = "0" + result
 
-  while decimal > 0:
-    remainder = decimal % 3
-    result = str(remainder) + result
-    decimal = decimal // 3
+#   while decimal > 0:
+#     remainder = decimal % 3
+#     result = str(remainder) + result
+#     decimal = decimal // 3
 
-  if length == len(result):
-    return result
-  else:
-    while len(result) != length:
-      result = "0" + result
+#   if length == len(result):
+#     return result
+#   else:
+#     while len(result) != length:
+#       result = "0" + result
 
-    return result
+#     return result
 
-def yieldAllCombos(items):
-  """
-    Generates all combinations of N items into two bags, whereby each
-    item is in one or zero bags.
+# def yieldAllCombos(items):
+#   """
+#     Generates all combinations of N items into two bags, whereby each
+#     item is in one or zero bags.
 
-    Yields a tuple, (bag1, bag2), where each bag is represented as a list
-    of which item(s) are in each bag.
-  """
-  N = len(items)
+#     Yields a tuple, (bag1, bag2), where each bag is represented as a list
+#     of which item(s) are in each bag.
+#   """
+#   N = len(items)
 
-  for i in range(3**N):
-    i = decimal_to_ternary(i, N)
-    combo = ([], [])
+#   for i in range(3**N):
+#     i = decimal_to_ternary(i, N)
+#     combo = ([], [])
 
-    for index, j in enumerate(i):
-      if int(j) == 1:
-        combo[0].append(items[index])
-      elif int(j) == 2:
-        combo[1].append(items[index])
+#     for index, j in enumerate(i):
+#       if int(j) == 1:
+#         combo[0].append(items[index])
+#       elif int(j) == 2:
+#         combo[1].append(items[index])
 
-    yield combo
+#     yield combo
 
 # items = ['a', 'b', 'c', 'd', 'e', 'f']
 
@@ -178,17 +178,48 @@ def yieldAllCombos(items):
 
 #  ---
 
+# import random
+
+
+# def deterministicNumber():
+#     '''
+#     Deterministically generates and returns an even number between 9 and 21
+#     '''
+#     return 16
+
+# print(deterministicNumber())
+
+#  ---
+
+# import random
+
+
+# def stochasticNumber():
+#     '''
+#     Deterministically generates and returns an even number between 9 and 21
+#     '''
+#     randInt = random.choice([num for num in range(9, 22)])
+
+#     while randInt % 2 == 1:
+#       return stochasticNumber()
+#     return randInt
+
+# print(stochasticNumber())
+
+# ---
+
 import random
 
 
-def deterministicNumber():
-    '''
-    Deterministically generates and returns an even number between 9 and 21
-    '''
-    randInt = random.choice([num for num in range(9, 22)])
+mylist = []
 
-    while randInt % 2 == 1:
-      return deterministicNumber()
-    return randInt
+## Code I believed to be deterministic but it's actually stochastic.
 
-print(deterministicNumber())
+for i in range(random.randint(1, 10)):
+    random.seed(0)
+    if random.randint(1, 10) > 3:
+        number = random.randint(1, 10)
+        mylist.append(number)
+print(mylist)
+
+# ---
