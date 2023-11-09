@@ -12,10 +12,10 @@ import pylab
 
 # For Python 3.5:
 #from ps2_verify_movement35 import testRobotMovement
-# If you get a "Bad magic number" ImportError, you are not using Python 3.5 
+# If you get a "Bad magic number" ImportError, you are not using Python 3.5
 
 # For Python 3.6:
-from ps2_verify_movement36 import testRobotMovement
+# from ps2_verify_movement36 import testRobotMovement
 # If you get a "Bad magic number" ImportError, you are not using Python 3.6
 
 
@@ -30,13 +30,13 @@ class Position(object):
         """
         self.x = x
         self.y = y
-        
+
     def getX(self):
         return self.x
-    
+
     def getY(self):
         return self.y
-    
+
     def getNewPosition(self, angle, speed):
         """
         Computes and returns the new Position after a single clock-tick has
@@ -60,7 +60,7 @@ class Position(object):
         new_y = old_y + delta_y
         return Position(new_x, new_y)
 
-    def __str__(self):  
+    def __str__(self):
         return "(%0.2f, %0.2f)" % (self.x, self.y)
 
 
@@ -82,8 +82,14 @@ class RectangularRoom(object):
         width: an integer > 0
         height: an integer > 0
         """
-        raise NotImplementedError
-    
+        self.width = width
+        self.height = height
+        cleanDict = {}
+
+        for w in range(width):
+            for h in range(height):
+                cleanDict[w, h] = False
+
     def cleanTileAtPosition(self, pos):
         """
         Mark the tile under the position POS as cleaned.
@@ -105,7 +111,7 @@ class RectangularRoom(object):
         returns: True if (m, n) is cleaned, False otherwise
         """
         raise NotImplementedError
-    
+
     def getNumTiles(self):
         """
         Return the total number of tiles in the room.
@@ -169,7 +175,7 @@ class Robot(object):
         returns: a Position object giving the robot's position.
         """
         raise NotImplementedError
-    
+
     def getRobotDirection(self):
         """
         Return the direction of the robot.
@@ -288,7 +294,7 @@ def showPlot1(title, x_label, y_label):
     pylab.ylabel(y_label)
     pylab.show()
 
-    
+
 def showPlot2(title, x_label, y_label):
     """
     What information does the plot produced by this function tell you?
@@ -309,10 +315,10 @@ def showPlot2(title, x_label, y_label):
     pylab.xlabel(x_label)
     pylab.ylabel(y_label)
     pylab.show()
-    
+
 
 # === Problem 6
-# NOTE: If you are running the simulation, you will have to close it 
+# NOTE: If you are running the simulation, you will have to close it
 # before the plot will show up.
 
 #
