@@ -208,18 +208,20 @@
 
 # ---
 
-import random
+# import random
 
 
-mylist = []
+# mylist = []
 
-## Code I believed to be deterministic but it's actually stochastic.
+# ## Code I believed to be deterministic but it's actually stochastic.
 
-for i in range(random.randint(1, 10)):
-    random.seed(0)
-    if random.randint(1, 10) > 3:
-        number = random.randint(1, 10)
-        mylist.append(number)
-print(mylist)
+# for i in range(random.randint(1, 10)):
+#     random.seed(0)
+#     if random.randint(1, 10) > 3:
+#         number = random.randint(1, 10)
+#         mylist.append(number)
+# print(mylist)
 
 # ---
+
+# Starting week 2 pSet in another folder.
