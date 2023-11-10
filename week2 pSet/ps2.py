@@ -84,11 +84,11 @@ class RectangularRoom(object):
         """
         self.width = width
         self.height = height
-        cleanDict = {}
+        self.cleanDict = {}
 
         for w in range(width):
             for h in range(height):
-                cleanDict[w, h] = False
+                self.cleanDict[w, h] = False
 
     def cleanTileAtPosition(self, pos):
         """
@@ -98,7 +98,10 @@ class RectangularRoom(object):
 
         pos: a Position
         """
-        raise NotImplementedError
+        x = math.floor(pos.getX())
+        y = math.floor(pos.getY())
+
+        self.cleanDict[x, y] = True
 
     def isTileCleaned(self, m, n):
         """
@@ -110,7 +113,7 @@ class RectangularRoom(object):
         n: an integer
         returns: True if (m, n) is cleaned, False otherwise
         """
-        raise NotImplementedError
+        return self.cleanDict[m, n]
 
     def getNumTiles(self):
         """
@@ -118,7 +121,7 @@ class RectangularRoom(object):
 
         returns: an integer
         """
-        raise NotImplementedError
+        return len(self.cleanDict)
 
     def getNumCleanedTiles(self):
         """
@@ -126,7 +129,13 @@ class RectangularRoom(object):
 
         returns: an integer
         """
-        raise NotImplementedError
+        count = 0
+
+        for tile in self.cleanDict.values():
+            if tile == True:
+                count += 1
+
+        return count
 
     def getRandomPosition(self):
         """
@@ -134,7 +143,9 @@ class RectangularRoom(object):
 
         returns: a Position object.
         """
-        raise NotImplementedError
+        randomPos = random.choice(list(self.cleanDict.keys()))
+
+        return Position(randomPos[0], randomPos[1])
 
     def isPositionInRoom(self, pos):
         """
@@ -143,7 +154,29 @@ class RectangularRoom(object):
         pos: a Position object.
         returns: True if pos is in the room, False otherwise.
         """
-        raise NotImplementedError
+        posX = math.floor(pos.getX())
+        posY = math.floor(pos.getY())
+
+        for x, y in self.cleanDict.keys():
+            if posX == x and posY == y:
+                return True
+
+        return False
+
+room = RectangularRoom(4, 6)
+print(room.getRandomPosition())
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # === Problem 2
