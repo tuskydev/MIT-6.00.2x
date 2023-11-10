@@ -163,22 +163,6 @@ class RectangularRoom(object):
 
         return False
 
-room = RectangularRoom(4, 6)
-print(room.getRandomPosition())
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # === Problem 2
 class Robot(object):
     """
@@ -199,7 +183,12 @@ class Robot(object):
         room:  a RectangularRoom object.
         speed: a float (speed > 0)
         """
-        raise NotImplementedError
+        self.room = room
+        self.speed = speed
+
+        self.direction = int
+        self.robotPosition = self.room.getRandomPosition()
+        self.room.cleanTileAtPosition(self.robotPosition)
 
     def getRobotPosition(self):
         """
@@ -207,7 +196,7 @@ class Robot(object):
 
         returns: a Position object giving the robot's position.
         """
-        raise NotImplementedError
+        return self.robotPosition
 
     def getRobotDirection(self):
         """
@@ -216,7 +205,7 @@ class Robot(object):
         returns: an integer d giving the direction of the robot as an angle in
         degrees, 0 <= d < 360.
         """
-        raise NotImplementedError
+        return self.direction
 
     def setRobotPosition(self, position):
         """
@@ -224,7 +213,7 @@ class Robot(object):
 
         position: a Position object.
         """
-        raise NotImplementedError
+        self.robotPosition = position
 
     def setRobotDirection(self, direction):
         """
@@ -232,7 +221,7 @@ class Robot(object):
 
         direction: integer representing an angle in degrees
         """
-        raise NotImplementedError
+        self.direction = direction
 
     def updatePositionAndClean(self):
         """
@@ -241,7 +230,15 @@ class Robot(object):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        raise NotImplementedError # don't change this!
+        newPosition = self.robotPosition.getNewPosition(self.direction, self.speed)
+        self.robotPosition = newPosition
+
+        ## ADD THIS IF THEY ASK FOR IT
+        # if self.room.isPositionInRoom(newPosition):
+        #     self.robotPosition = newPosition
+        # else:
+        #     newPosition = self.room.
+
 
 
 # === Problem 3
