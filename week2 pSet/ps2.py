@@ -18,6 +18,7 @@ import pylab
 # from ps2_verify_movement36 import testRobotMovement
 # If you get a "Bad magic number" ImportError, you are not using Python 3.6
 
+from ps2_verify_movement312 import testRobotMovement
 
 # === Provided class Position
 class Position(object):
@@ -186,7 +187,7 @@ class Robot(object):
         self.room = room
         self.speed = speed
 
-        self.direction = int
+        self.direction = random.choice(range(0, 360))
         self.robotPosition = self.room.getRandomPosition()
         self.room.cleanTileAtPosition(self.robotPosition)
 
@@ -230,16 +231,7 @@ class Robot(object):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        newPosition = self.robotPosition.getNewPosition(self.direction, self.speed)
-        self.robotPosition = newPosition
-
-        ## ADD THIS IF THEY ASK FOR IT
-        # if self.room.isPositionInRoom(newPosition):
-        #     self.robotPosition = newPosition
-        # else:
-        #     newPosition = self.room.
-
-
+        raise NotImplementedError
 
 # === Problem 3
 class StandardRobot(Robot):
@@ -257,11 +249,18 @@ class StandardRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        raise NotImplementedError
+        newPosition = self.robotPosition.getNewPosition(self.direction, self.speed)
+
+        if self.room.isPositionInRoom(newPosition):
+            self.robotPosition = newPosition
+            self.room.cleanTileAtPosition(newPosition)
+        else:
+            self.direction = random.choice(range(0, 360))
+            self.updatePositionAndClean()
 
 
 # Uncomment this line to see your implementation of StandardRobot in action!
-##testRobotMovement(StandardRobot, RectangularRoom)
+# testRobotMovement(StandardRobot, RectangularRoom)
 
 
 # === Problem 4
