@@ -284,24 +284,23 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     """
     ticks = 0
     for _ in range(num_trials):
+        # anim = ps2_visualize.RobotVisualization(num_robots, width, height)
+
         # Instantiate a new room
         room = RectangularRoom(width, height)
         # Instantiate the robots
         robots = [robot_type(room, speed) for _ in range(num_robots)]
         while (room.getNumCleanedTiles()/room.getNumTiles()) < min_coverage:
+            # anim.update(room, robots)
+
             ticks += 1
             for k in robots:
                 k.updatePositionAndClean()
 
+        # anim.done()
+
     # return mean
     return ticks/num_trials
-
-
-
-
-# Uncomment this line to see how much your simulation takes on average
-print(runSimulation(1, 1.0, 10, 10, 0.75, 30, StandardRobot))
-
 
 # === Problem 5
 class RandomWalkRobot(Robot):
@@ -316,7 +315,28 @@ class RandomWalkRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        raise NotImplementedError
+        newPosition = self.robotPosition.getNewPosition(self.direction, self.speed)
+
+        if self.room.isPositionInRoom(newPosition):
+            self.robotPosition = newPosition
+            self.room.cleanTileAtPosition(newPosition)
+            self.direction = random.choice(range(0, 360))
+        else:
+            self.direction = random.choice(range(0, 360))
+            self.updatePositionAndClean()
+
+
+        # newPosition = self.robotPosition.getNewPosition(self.direction, self.speed)
+
+        # if self.room.isPositionInRoom(newPosition):
+        #     self.robotPosition = newPosition
+        #     self.room.cleanTileAtPosition(newPosition)
+        # else:
+        #     self.direction = random.choice(range(0, 360))
+        #     self.updatePositionAndClean()
+
+# Uncomment this line to see how much your simulation takes on average
+print(runSimulation(3, 1.0, 10, 10, 0.75, 30, RandomWalkRobot))
 
 
 def showPlot1(title, x_label, y_label):
