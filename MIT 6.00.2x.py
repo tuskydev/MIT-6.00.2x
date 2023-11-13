@@ -226,19 +226,24 @@
 
 # Starting week 2 pSet in another folder.
 
-import random
+# import random
 
 
-width = 3
-height = 2
-cleanDict = {}
+# width = 3
+# height = 2
+# cleanDict = {}
 
-for w in range(width):
-  for h in range(height):
-    cleanDict[w, h] = False
+# for w in range(width):
+#   for h in range(height):
+#     cleanDict[w, h] = False
 
-cleanDict[2,1] = True
+# cleanDict[2,1] = True
 
-for x,y in cleanDict.keys():
-  print(x,y)
+# for x,y in cleanDict.keys():
+#   print(x,y)
 # print(random.choice(list(cleanDict.keys())))
+
+# ---
+
+for i in (range(3)):
+  print("hello")
