@@ -254,26 +254,12 @@ def stdDevOfLengths(L):
   returns: float, the standard deviation of the lengths of the strings,
   or NaN if L is empty.
   """
-  if len(L) == False:
-    return float('NaN')
-
-  letterDict = {}
+  total = 0
   for word in L:
-    letterDict[word] = letterDict.get(word, len(word))
+    total += len(word)
+  mean = total / len(L)
+  return mean
 
-  total = 0 ## For the mean value
-  for v in letterDict.values():
-    total += v
-  mean = total / len(letterDict)
-
-  total = 0 ## For the standard deviation value
-  for v in letterDict.values():
-    total += (v - mean)**2
-  standard = (total / len(letterDict))**0.5
-
-  return standard
-
-
-L = ['oc', 'zjp', 'hornkrghxs', 'jsk', 'uetp', 'wuervatflapsp']
+L = ['oc', '', 'zjp', 'hornkrghxs', 'jsk', 'uetp', '', 'wuervatflapsp']
 print(stdDevOfLengths(L))
 
