@@ -245,5 +245,35 @@
 
 # ---
 
-for i in (range(3)):
-  print("hello")
+## Unit 3.7 Inferential Statistics
+
+def stdDevOfLengths(L):
+  """
+  L: a list of strings
+
+  returns: float, the standard deviation of the lengths of the strings,
+  or NaN if L is empty.
+  """
+  if len(L) == False:
+    return float('NaN')
+
+  letterDict = {}
+  for word in L:
+    letterDict[word] = letterDict.get(word, len(word))
+
+  total = 0 ## For the mean value
+  for v in letterDict.values():
+    total += v
+  mean = total / len(letterDict)
+
+  total = 0 ## For the standard deviation value
+  for v in letterDict.values():
+    total += (v - mean)**2
+  standard = (total / len(letterDict))**0.5
+
+  return standard
+
+
+L = ['oc', 'zjp', 'hornkrghxs', 'jsk', 'uetp', 'wuervatflapsp']
+print(stdDevOfLengths(L))
+
