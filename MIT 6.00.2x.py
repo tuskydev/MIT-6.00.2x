@@ -247,19 +247,53 @@
 
 ## Unit 3.7 Inferential Statistics
 
-def stdDevOfLengths(L):
-  """
-  L: a list of strings
+# def stdDevOfLengths(L):
+#   """
+#   L: a list of strings
 
-  returns: float, the standard deviation of the lengths of the strings,
-  or NaN if L is empty.
-  """
-  total = 0
-  for word in L:
-    total += len(word)
-  mean = total / len(L)
-  return mean
+#   returns: float, the standard deviation of the lengths of the strings,
+#   or NaN if L is empty.
+#   """
+#   if len(L) == False:
+#     return float("NaN")
 
-L = ['oc', '', 'zjp', 'hornkrghxs', 'jsk', 'uetp', '', 'wuervatflapsp']
-print(stdDevOfLengths(L))
+#   total = 0 ## Calculates the mean
+#   for number in L:
+#     total += number
+#   mean = total / len(L)
 
+#   total = 0 ## Calculates the standard deviation
+#   for number in L:
+#     total += (number - mean)**2
+#   standard = (total / len(L))**0.5
+
+#   return standard / mean
+
+
+# L = [1, 2, 3]
+# print(stdDevOfLengths(L))
+# L = [11, 12, 13]
+# print(stdDevOfLengths(L))
+# L = [.1, .1, .1]
+# print(stdDevOfLengths(L))
+
+#  ---
+
+import numpy
+
+
+def loadFile():
+  inFile = open('./julytemps.txt')
+  high = []
+  low = []
+  for line in inFile:
+    fields = line.split()
+    if len(fields) < 3 or not fields[0].isdigit():
+      continue
+    else:
+      high.append(int(fields[1]))
+      low.append(int(fields[2]))
+  diffTemps = list(numpy.array(high) - numpy.array(low))
+  return (f"{(low)}\n\n{high}\n\n{diffTemps}")
+
+print(loadFile())
