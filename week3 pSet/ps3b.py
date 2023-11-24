@@ -58,7 +58,7 @@ class SimpleVirus(object):
         # random.seed(0)
         chance = random.random()
 
-        if chance <= self.clearProb:
+        if chance < self.clearProb:
             return True
         else:
             return False
@@ -87,7 +87,7 @@ class SimpleVirus(object):
         chance = random.random()
         reproductionChance = self.maxBirthProb * (1 - popDensity)
 
-        if chance <= self.maxBirthProb:
+        if chance <= reproductionChance:
             return SimpleVirus(self.maxBirthProb, self.clearProb)
         else:
             raise NoChildException
@@ -163,29 +163,21 @@ class Patient(object):
                 newViruses.append(virus)
 
         density = len(newViruses) / self.getMaxPop()
-        print(density)
+
+        finalViruses = []
 
         for virus in newViruses:
+            finalViruses.append(virus)
+
             try:
                 babyVirus = virus.reproduce(density)
-                newViruses.append(babyVirus)
-            except:
+                finalViruses.append(babyVirus)
+            except NoChildException:
                 continue
 
-        self.viruses = newViruses
+        self.viruses = finalViruses
 
-        return len(self.viruses)
-
-
-virus = SimpleVirus(1.0, 0.0)
-patient = Patient([virus], 100)
-
-for _ in range(0,101):
-    patient.update()
-
-print(patient.getTotalPop())
-
-
+        return len(newViruses)
 
 
 #
@@ -206,8 +198,27 @@ def simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb,
     clearProb: Maximum clearance probability (a float between 0-1)
     numTrials: number of simulation runs to execute (an integer)
     """
+    listofViruses = [SimpleVirus(maxBirthProb, clearProb) for _ in range(numViruses)]
+    listsOfVirusesPerTrial = []
 
-    # TODO
+    for _ in range(numTrials):
+        patient = Patient(listofViruses, maxPop)
+        tempList = []
+
+        for _ in range(300):
+            tempList.append(patient.update())
+
+        print("THIS IS TEMPLIST", tempList)
+
+    # avgVirusesPerTrial = []
+
+    # for list in listsOfVirusesPerTrial:
+    #     avgPerList = sum(list) / numTrials
+        # avgVirusesPerTrial.append(avgPerList)
+
+    # return avgVirusesPerTrial
+
+print(simulationWithoutDrug(100, 1000, .1, .05, 5))
 
 
 
