@@ -12,7 +12,7 @@
 ### Ternary digits being matched to their unique permutation
 ![image](https://github.com/tuskydev/MIT-6.00.2x/assets/52723004/ee520b02-72ab-4f52-9fbd-47462fcae3bb)
 
-### Analyzing virus reporoduction trajectories for untreated viruses in a patient
+### Analyzing virus reproduction trajectory for untreated viruses in a patient
 ![image](https://github.com/tuskydev/MIT-6.00.2x/assets/52723004/12633aad-6fc9-42d1-ba66-45842790e476)
 
 ## Key Notes:
