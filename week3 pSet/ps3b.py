@@ -354,28 +354,10 @@ class ResistantVirus(SimpleVirus):
                 raise NoChildException
 
 
-virus = ResistantVirus(1.0, 0.0, {'drug1':True, 'drug2': True, 'drug3': True, 'drug4': True, 'drug5': True, 'drug6': True}, 0.5)
-for num in range(10):
-    child = virus.reproduce(0, [])
-    print("this is child ",child)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# virus = ResistantVirus(1.0, 0.0, {'drug1':True, 'drug2': True, 'drug3': True, 'drug4': True, 'drug5': True, 'drug6': True}, 0.5)
+# for num in range(10):
+#     child = virus.reproduce(0, [])
+#     print("this is child ",child)
 
 
 class TreatedPatient(Patient):
@@ -393,11 +375,9 @@ class TreatedPatient(Patient):
         viruses: The list representing the virus population (a list of
         virus instances)
 
-        maxPop: The  maximum virus population for this patient (an integer)
+        maxPop: The maximum virus population for this patient (an integer)
         """
-
-        # TODO
-
+        super().__init__(viruses, maxPop)  # Call __init__ of the superclass
 
     def addPrescription(self, newDrug):
         """
