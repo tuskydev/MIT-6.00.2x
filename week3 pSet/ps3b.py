@@ -251,21 +251,23 @@ class ResistantVirus(SimpleVirus):
         mutProb: Mutation probability for this virus particle (a float). This is
         the probability of the offspring acquiring or losing resistance to a drug.
         """
-
-        # TODO
-
+        super().__init__(maxBirthProb, clearProb)  # Call __init__ of the superclass
+        self.maxBirthProb = maxBirthProb
+        self.clearProb = clearProb
+        self.resistances = resistances
+        self.mutProb = mutProb
 
     def getResistances(self):
         """
         Returns the resistances for this virus.
         """
-        # TODO
+        return self.resistances
 
     def getMutProb(self):
         """
         Returns the mutation probability for this virus.
         """
-        # TODO
+        return self.mutProb
 
     def isResistantTo(self, drug):
         """
@@ -278,8 +280,7 @@ class ResistantVirus(SimpleVirus):
         returns: True if this virus instance is resistant to the drug, False
         otherwise.
         """
-
-        # TODO
+        return self.resistances.get(drug, False)
 
 
     def reproduce(self, popDensity, activeDrugs):
@@ -326,8 +327,54 @@ class ResistantVirus(SimpleVirus):
         maxBirthProb and clearProb values as this virus. Raises a
         NoChildException if this virus particle does not reproduce.
         """
+        resistant = True
+        for drug in activeDrugs:
+            if self.resistances[drug] != True: ## False: Don't reproduce
+                resistant = False
 
-        # TODO
+        if resistant:
+            chance = random.random()
+            if chance <= self.maxBirthProb * (1 - popDensity): ## Reproduction commence below
+                for drug, value in self.resistances.items():
+                    resistChance = random.random()
+
+                    if value: ## If it IS resistant to the drug 90%/10% - win/lose
+                        if resistChance <= (1 - self.mutProb):
+                            self.resistances[drug] = True
+                        else:
+                            self.resistances[drug] = False
+                    else:     ## It's NOT resistant to the drug 10%/90% - win/lose
+                        if resistChance <= 1-self.mutProb:
+                            self.resistances[drug] = False
+                        else:
+                            self.resistances[drug] = True
+
+                return ResistantVirus(self.maxBirthProb, self.clearProb, self.resistances, self.mutProb)
+            else:
+                raise NoChildException
+
+
+virus = ResistantVirus(1.0, 0.0, {'drug1':True, 'drug2': True, 'drug3': True, 'drug4': True, 'drug5': True, 'drug6': True}, 0.5)
+for num in range(10):
+    child = virus.reproduce(0, [])
+    print("this is child ",child)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
