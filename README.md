@@ -12,8 +12,8 @@
 ### Ternary digits being matched to their unique permutation
 ![image](https://github.com/tuskydev/MIT-6.00.2x/assets/52723004/ee520b02-72ab-4f52-9fbd-47462fcae3bb)
 
-### Image of the Pop-up-Bar's integrated and dynamic Carousel 
-![image](https://user-images.githubusercontent.com/52723004/93537444-7d4e3f00-f919-11ea-94d4-43ab6a3205a9.png)
+### Analyzing virus reporoduction trajectories for untreated viruses in a patient
+![image](https://github.com/tuskydev/MIT-6.00.2x/assets/52723004/12633aad-6fc9-42d1-ba66-45842790e476)
 
 ## Key Notes:
 * This will require Tkinter for certain parts of the project (make sure your Python is up to date)
