@@ -198,27 +198,31 @@ def simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb,
     clearProb: Maximum clearance probability (a float between 0-1)
     numTrials: number of simulation runs to execute (an integer)
     """
-    listofViruses = [SimpleVirus(maxBirthProb, clearProb) for _ in range(numViruses)]
-    listsOfVirusesPerTrial = []
+    startingViruses = [SimpleVirus(maxBirthProb, clearProb) for _ in range(numViruses)]
+    listsOfVirusesPerTrial = [[] for _ in range(300)]
 
     for _ in range(numTrials):
-        patient = Patient(listofViruses, maxPop)
-        tempList = []
+        patient = Patient(startingViruses, maxPop)
 
-        for _ in range(300):
-            tempList.append(patient.update())
+        for index in range(300):
+            updatedPatient = patient.update()
+            listsOfVirusesPerTrial[index].append(updatedPatient)
 
-        print("THIS IS TEMPLIST", tempList)
+    virusAvgPerTrial = []
 
-    # avgVirusesPerTrial = []
+    for virusesList in listsOfVirusesPerTrial:
+        virusAvgPerTrial.append(sum(virusesList) / numTrials)
 
-    # for list in listsOfVirusesPerTrial:
-    #     avgPerList = sum(list) / numTrials
-        # avgVirusesPerTrial.append(avgPerList)
+    # return virusAvgPerTrial
 
-    # return avgVirusesPerTrial
+    pylab.plot(virusAvgPerTrial, label = "SimpleVirus")
+    pylab.title("SimpleVirus simulation")
+    pylab.xlabel("Time Steps")
+    pylab.ylabel("Average Virus Population")
+    pylab.legend(loc = "best")
+    pylab.show()
 
-print(simulationWithoutDrug(100, 1000, .1, .05, 5))
+print(simulationWithoutDrug(100, 1000, .1, .05, 300))
 
 
 
