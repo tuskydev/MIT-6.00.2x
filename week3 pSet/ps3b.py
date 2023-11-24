@@ -345,6 +345,8 @@ class ResistantVirus(SimpleVirus):
                 return ResistantVirus(self.maxBirthProb, self.clearProb, self.resistances, self.mutProb)
             else:
                 raise NoChildException
+        else:
+            raise NoChildException
 
 
 # virus = ResistantVirus(1.0, 0.0, {'drug1':True, 'drug2': True, 'drug3': True, 'drug4': True, 'drug5': True, 'drug6': True}, 0.5)
@@ -412,11 +414,10 @@ class TreatedPatient(Patient):
         resistantViruses = 0
 
         for virus in self.viruses:
-            allResistant = True
             for drug in drugResist:
-                if virus.resistances.get(drug, False) is False:
-                    allResistant = False
-            if allResistant:
+                if not virus.isResistantTo(drug):
+                    break
+            else:
                 resistantViruses +=1
 
         return resistantViruses
@@ -448,25 +449,30 @@ class TreatedPatient(Patient):
                 continue
             else:
                 newViruses.append(virus)
+                density = len(newViruses) / self.getMaxPop()
 
-        density = len(newViruses) / self.getMaxPop()
+                try:
+                    print("DRUGS:", self.currentDrugs)
+                    babyVirus = virus.reproduce(density, self.currentDrugs)
+                    newViruses.append(babyVirus)
+                except NoChildException:
+                    print("did we get here>?")
+                    continue
 
-        finalViruses = []
-        for virus in newViruses:
-            finalViruses.append(virus)
+        self.viruses = newViruses
 
-            try:
-                babyVirus = virus.reproduce(density, self.currentDrugs)
-                finalViruses.append(babyVirus)
-            except NoChildException:
-                continue
-
-        self.viruses = finalViruses
-
-        return len(newViruses)
+        return len(self.viruses)
 
 
+virus1 = ResistantVirus(1.0, 0.0, {"drug1": True}, 0.0)
+virus2 = ResistantVirus(1.0, 0.0, {"drug1": False}, 0.0)
+patient = TreatedPatient([virus1, virus2], 1000000)
+patient.addPrescription("drug1")
 
+for _ in range(5):
+    print("bruh",patient.update())
+
+print("what i this ",patient.getTotalPop())
 
 
 
