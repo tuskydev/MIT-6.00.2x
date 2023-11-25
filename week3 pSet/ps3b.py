@@ -58,7 +58,7 @@ class SimpleVirus(object):
         # random.seed(0)
         chance = random.random()
 
-        if chance < self.clearProb:
+        if chance <= self.clearProb:
             return True
         else:
             return False
@@ -220,6 +220,50 @@ def simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb,
 # print(simulationWithoutDrug(100, 1000, .1, .05, 300))
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #
 # PROBLEM 3
 #
@@ -344,15 +388,23 @@ class ResistantVirus(SimpleVirus):
 
                 return ResistantVirus(self.maxBirthProb, self.clearProb, self.resistances, self.mutProb)
             else:
+                print("Error from reproduce() NoChildExcept ONE")
                 raise NoChildException
         else:
+            print("Error from reproduce() NoChildExcept TWO")
             raise NoChildException
+
+
+
 
 
 # virus = ResistantVirus(1.0, 0.0, {'drug1':True, 'drug2': True, 'drug3': True, 'drug4': True, 'drug5': True, 'drug6': True}, 0.5)
 # for num in range(10):
 #     child = virus.reproduce(0, [])
 #     print("this is child ",child)
+
+
+
 
 
 class TreatedPatient(Patient):
@@ -445,7 +497,7 @@ class TreatedPatient(Patient):
         newViruses = []
 
         for virus in self.viruses:
-            if virus.doesClear():
+            if virus.doesClear(): ## Virus got cleared
                 continue
             else:
                 newViruses.append(virus)
@@ -453,10 +505,11 @@ class TreatedPatient(Patient):
 
                 try:
                     print("DRUGS:", self.currentDrugs)
-                    babyVirus = virus.reproduce(density, self.currentDrugs)
+                    # babyVirus = virus.reproduce(density, self.currentDrugs)
+                    print("this is babyVirus", virus.reproduce(density, self.currentDrugs))
                     newViruses.append(babyVirus)
                 except NoChildException:
-                    print("did we get here>?")
+                    print("Error for virus: ", virus.resistances)
                     continue
 
         self.viruses = newViruses
@@ -473,6 +526,16 @@ for _ in range(5):
     print("bruh",patient.update())
 
 print("what i this ",patient.getTotalPop())
+
+
+
+
+
+
+
+
+
+
 
 
 
