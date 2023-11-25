@@ -279,7 +279,7 @@ class ResistantVirus(SimpleVirus):
     def reproduce(self, popDensity, activeDrugs):
         resistant = True
         for drug in activeDrugs:
-            if self.resistances[drug] != True:  # False: Don't reproduce
+            if self.resistances.get(drug, False) != True:  # False: Don't reproduce
                 resistant = False
 
         if resistant:
@@ -417,38 +417,15 @@ class TreatedPatient(Patient):
         return len(self.viruses)
 
 
-virus1 = ResistantVirus(1.0, 0.0, {"drug1": True}, 0.0)
-virus2 = ResistantVirus(1.0, 0.0, {"drug1": False}, 0.0)
-patient = TreatedPatient([virus1, virus2], 1000000)
-patient.addPrescription("drug1")
+# virus1 = ResistantVirus(1.0, 0.0, {"drug1": True}, 0.0)
+# virus2 = ResistantVirus(1.0, 0.0, {"drug1": False}, 0.0)
+# patient = TreatedPatient([virus1, virus2], 1000000)
+# patient.addPrescription("drug1")
 
-for _ in range(5):
-    print(patient.update())
+# for _ in range(5):
+#     print(patient.update())
 
-print("Final update: ", patient.getTotalPop())
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# print("Final update: ", patient.getTotalPop())
 
 
 #
@@ -476,5 +453,50 @@ def simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances,
     numTrials: number of simulation runs to execute (an integer)
 
     """
+    virusList = [ResistantVirus(maxBirthProb, clearProb, resistances, mutProb) for _ in range(numViruses)]
+    avgVirusPerUpdate = [[] for _ in range(300)]
+    avgResistantVirus = [[] for _ in range(300)]
 
-    # TODO
+    for _ in range(numTrials):
+        patient = TreatedPatient(virusList, maxPop)
+
+        for index in range(150):
+            avgVirusPerUpdate[index].append(patient.update())
+
+            count = 0
+            for virus in patient.viruses: ## Every update check how many viruses are resistant
+                if virus.resistances.get("guttagonol", False):
+                    count += 1
+            avgResistantVirus[index].append(count)
+
+        patient.addPrescription("guttagonol")
+
+        for index in range(150):
+            avgVirusPerUpdate[index + 150].append(patient.update())
+
+            count = 0
+            for virus in patient.viruses: ## Every update check how many viruses are resistant
+                if virus.resistances.get("guttagonol", False):
+                    count += 1
+            avgResistantVirus[index + 150].append(count)
+
+    finalAvgVirusPerUpdate = [] ## Calculating avg for total pop
+    for specificUpdate in avgVirusPerUpdate:
+        avg = sum(specificUpdate) / len(specificUpdate)
+        finalAvgVirusPerUpdate.append(avg)
+
+    secondFinalResistantVirus = [] ## Calculating avg for RESISTANT pop
+    for specificUpdate in avgResistantVirus:
+        avg = sum(specificUpdate) / len(specificUpdate)
+        secondFinalResistantVirus.append(avg)
+
+    pylab.plot(finalAvgVirusPerUpdate, label = "Non-Resistant")
+    pylab.plot(secondFinalResistantVirus, label = "Resistant")
+    pylab.title("ResistantVirus simulation")
+    pylab.xlabel("time step")
+    pylab.ylabel("# viruses")
+    pylab.legend(loc = "best")
+    pylab.show()
+
+print(simulationWithDrug(100, 1000, .1, .005, {"guttagonol": False}, .005, 2))
+print("Done!")
