@@ -220,50 +220,6 @@ def simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb,
 # print(simulationWithoutDrug(100, 1000, .1, .05, 300))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #
 # PROBLEM 3
 #
@@ -321,90 +277,40 @@ class ResistantVirus(SimpleVirus):
         return self.resistances.get(drug, False)
 
     def reproduce(self, popDensity, activeDrugs):
-        """
-        Stochastically determines whether this virus particle reproduces at a
-        time step. Called by the update() method in the TreatedPatient class.
-
-        A virus particle will only reproduce if it is resistant to ALL the drugs
-        in the activeDrugs list. For example, if there are 2 drugs in the
-        activeDrugs list, and the virus particle is resistant to 1 or no drugs,
-        then it will NOT reproduce.
-
-        Hence, if the virus is resistant to all drugs
-        in activeDrugs, then the virus reproduces with probability:
-
-        self.maxBirthProb * (1 - popDensity).
-
-        If this virus particle reproduces, then reproduce() creates and returns
-        the instance of the offspring ResistantVirus (which has the same
-        maxBirthProb and clearProb values as its parent). The offspring virus
-        will have the same maxBirthProb, clearProb, and mutProb as the parent.
-
-        For each drug resistance trait of the virus (i.e. each key of
-        self.resistances), the offspring has probability 1-mutProb of
-        inheriting that resistance trait from the parent, and probability
-        mutProb of switching that resistance trait in the offspring.
-
-        For example, if a virus particle is resistant to guttagonol but not
-        srinol, and self.mutProb is 0.1, then there is a 10% chance that
-        that the offspring will lose resistance to guttagonol and a 90%
-        chance that the offspring will be resistant to guttagonol.
-        There is also a 10% chance that the offspring will gain resistance to
-        srinol and a 90% chance that the offspring will not be resistant to
-        srinol.
-
-        popDensity: the population density (a float), defined as the current
-        virus population divided by the maximum population
-
-        activeDrugs: a list of the drug names acting on this virus particle
-        (a list of strings).
-
-        returns: a new instance of the ResistantVirus class representing the
-        offspring of this virus particle. The child should have the same
-        maxBirthProb and clearProb values as this virus. Raises a
-        NoChildException if this virus particle does not reproduce.
-        """
         resistant = True
         for drug in activeDrugs:
-            if self.resistances[drug] != True: ## False: Don't reproduce
+            if self.resistances[drug] != True:  # False: Don't reproduce
                 resistant = False
 
         if resistant:
             chance = random.random()
-            if chance <= self.maxBirthProb * (1 - popDensity): ## Reproduction commence below
+            if chance <= self.maxBirthProb * (1 - popDensity):  # Reproduction commence below
+                offspring_resistances = self.resistances.copy()  # Create a copy of the resistances
                 for drug, value in self.resistances.items():
                     resistChance = random.random()
 
-                    if value: ## If it IS resistant to the drug 90%/10% - win/lose
+                    if value:  # If it IS resistant to the drug 90%/10% - win/lose
                         if resistChance <= (1 - self.mutProb):
-                            self.resistances[drug] = True
+                            offspring_resistances[drug] = True
                         else:
-                            self.resistances[drug] = False
-                    else:     ## It's NOT resistant to the drug 10%/90% - win/lose
-                        if resistChance <= 1-self.mutProb:
-                            self.resistances[drug] = False
+                            offspring_resistances[drug] = False
+                    else:  # It's NOT resistant to the drug 10%/90% - win/lose
+                        if resistChance <= 1 - self.mutProb:
+                            offspring_resistances[drug] = False
                         else:
-                            self.resistances[drug] = True
+                            offspring_resistances[drug] = True
 
-                return ResistantVirus(self.maxBirthProb, self.clearProb, self.resistances, self.mutProb)
+                return ResistantVirus(self.maxBirthProb, self.clearProb, offspring_resistances, self.mutProb)
             else:
-                print("Error from reproduce() NoChildExcept ONE")
                 raise NoChildException
         else:
-            print("Error from reproduce() NoChildExcept TWO")
             raise NoChildException
-
-
-
 
 
 # virus = ResistantVirus(1.0, 0.0, {'drug1':True, 'drug2': True, 'drug3': True, 'drug4': True, 'drug5': True, 'drug6': True}, 0.5)
 # for num in range(10):
 #     child = virus.reproduce(0, [])
 #     print("this is child ",child)
-
-
-
 
 
 class TreatedPatient(Patient):
@@ -439,9 +345,6 @@ class TreatedPatient(Patient):
         """
         if newDrug not in self.currentDrugs:
             self.currentDrugs.append(newDrug)
-
-        for virus in self.viruses:
-            virus.resistances[newDrug] = False
 
     def getPrescriptions(self):
         """
@@ -504,12 +407,9 @@ class TreatedPatient(Patient):
                 density = len(newViruses) / self.getMaxPop()
 
                 try:
-                    print("DRUGS:", self.currentDrugs)
-                    # babyVirus = virus.reproduce(density, self.currentDrugs)
-                    print("this is babyVirus", virus.reproduce(density, self.currentDrugs))
+                    babyVirus = virus.reproduce(density, self.currentDrugs)
                     newViruses.append(babyVirus)
                 except NoChildException:
-                    print("Error for virus: ", virus.resistances)
                     continue
 
         self.viruses = newViruses
@@ -523,9 +423,9 @@ patient = TreatedPatient([virus1, virus2], 1000000)
 patient.addPrescription("drug1")
 
 for _ in range(5):
-    print("bruh",patient.update())
+    print(patient.update())
 
-print("what i this ",patient.getTotalPop())
+print("Final update: ", patient.getTotalPop())
 
 
 
