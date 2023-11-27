@@ -352,35 +352,70 @@
 
 #  ---
 
-one = []
-two = [1]
-three = [2]
-four = [10, 5 ,1]
+# one = []
+# two = [1]
+# three = [2]
+# four = [10, 5 ,1]
 
-def greedySum(L, s):
-  """ input: s, positive integer, what the sum should add up to
-      L, list of unique positive integers sorted in descending order
-      Use the greedy approach where you find the largest multiplier for
-      the largest value in L then for the second largest, and so on to
-      solve the equation s = L[0]*m_0 + L[1]*m_1 + ... + L[n-1]*m_(n-1)
-      return: the sum of the multipliers or "no solution" if greedy approach does
-      not yield a set of multipliers such that the equation sums to 's'
+# def greedySum(L, s):
+#   """ input: s, positive integer, what the sum should add up to
+#       L, list of unique positive integers sorted in descending order
+#       Use the greedy approach where you find the largest multiplier for
+#       the largest value in L then for the second largest, and so on to
+#       solve the equation s = L[0]*m_0 + L[1]*m_1 + ... + L[n-1]*m_(n-1)
+#       return: the sum of the multipliers or "no solution" if greedy approach does
+#       not yield a set of multipliers such that the equation sums to 's'
+#   """
+#   multList = [0 for _ in range(len(L))]
+#   tempS = s
+
+#   for index, num in enumerate(L):
+#     multiplier = multList[index]
+
+#     while (num * (multiplier + 1)) <= tempS:
+#       multiplier += 1
+#     multList[index] = multiplier
+#     tempS -= num * multiplier
+
+#   if tempS == 0:
+#     return sum(multList)
+#   else:
+#     return "no solution"
+
+# print(greedySum([16, 12, 5, 3, 1], 15))
+
+# ---
+
+def solve(s):
   """
-  multList = [0 for _ in range(len(L))]
+  s: positive integer, what the sum should add up to
+
+  Solves the following optimization problem:
+    x1 + x2 + x3 + x4 is minimized
+    subject to the constraint x1*25 + x2*10 + x3*5 + x4 = s
+    and that x1, x2, x3, x4 are non-negative integers.
+  Returns a list of the coefficients x1, x2, x3, x4 in that order
+  """
   tempS = s
+  counter = [0, 0, 0, 0]
 
-  for index, num in enumerate(L):
-    multiplier = multList[index]
+  if tempS // 25:
+    counter[0] += tempS // 25
+    tempS = tempS - 25
 
-    while (num * (multiplier + 1)) <= tempS:
-      multiplier += 1
-    multList[index] = multiplier
-    tempS -= num * multiplier
+  if tempS // 10:
+    counter[1] += tempS // 10
+    tempS = tempS - 10
 
-  if tempS == 0:
-    return sum(multList)
-  else:
-    return "no solution"
+  if tempS // 5:
+    counter[2] += tempS // 5
+    tempS = tempS - 5
 
-print(greedySum([16, 12, 5, 3, 1], 15))
+  print("STOP WHAT IS THIS?", tempS)
+  if tempS // 1:
+    counter[3] += tempS // 1
+    tempS = tempS - 1
 
+  return counter
+
+print(solve(25))
