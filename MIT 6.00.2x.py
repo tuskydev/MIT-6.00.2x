@@ -300,31 +300,52 @@
 
 #  ---
 
-L = [10, 9, 8, -1] ## 27
-secondNumList=  [3, 4, -8, 15, -1, 2] ##16
-thirdList = [3, 4, -1, 5, -4] ## 11
-highestCount = 0
+# L = [10, 9, 8, -1] ## 27
+# secondNumList=  [3, 4, -8, 15, -1, 2] ##16
+# thirdList = [3, 4, -1, 5, -4] ## 11
+# highestCount = 0
 
-max_value = 0
-value = 0
-for i in range(len(thirdList)):
-  print(i)
-#   value = value + thirdList[i]
-#   if value < 0:
-#     value = 0
-#   if max_value < value:
-#     max_value = value
-# print("MAX VLAUE", max_value)
+# for index, num in enumerate(thirdList):
+#   for n in range(len(thirdList), 0, -1):
+#     # print(index, n)
+#     if index == n:
+#       break
 
-for index, num in enumerate(thirdList):
-  for n in range(len(thirdList), 0, -1):
-    # print(index, n)
-    if index == n:
-      break
+#     currSum = sum(thirdList[index:n])
+#     if currSum > highestCount:
+#       highestCount = currSum
 
-    currSum = sum(thirdList[index:n])
-    if currSum > highestCount:
-      highestCount = currSum
+# print("This is highestCount:", highestCount)
 
-print("This is highestCount:", highestCount)
+#  ---
 
+import random
+
+def F(): ## DETERMINISTIC
+  mylist = []
+  r = 1
+
+  if random.random() > 0.99: ## IT WILL PASS THIS
+    r = random.randint(1, 10)
+  for i in range(r):
+    random.seed(0)
+    if random.randint(1, 10) > 3:
+      number = random.randint(1, 10)
+      if number not in mylist:
+        mylist.append(number)
+  print(mylist)
+
+def G():
+  random.seed(0)
+  mylist = []
+  r = 1
+
+  if random.random() > 0.99: ## IT WILL PASS THIS
+    r = random.randint(1, 10)
+  for i in range(r):
+    if random.randint(1, 10) > 3:
+      number = random.randint(1, 10)
+      mylist.append(number)
+      print(mylist)
+
+print(G())
