@@ -319,33 +319,68 @@
 
 #  ---
 
-import random
+# import random
 
-def F(): ## DETERMINISTIC
-  mylist = []
-  r = 1
+# def F(): ## DETERMINISTIC
+#   mylist = []
+#   r = 1
 
-  if random.random() > 0.99: ## IT WILL PASS THIS
-    r = random.randint(1, 10)
-  for i in range(r):
-    random.seed(0)
-    if random.randint(1, 10) > 3:
-      number = random.randint(1, 10)
-      if number not in mylist:
-        mylist.append(number)
-  print(mylist)
+#   if random.random() > 0.99: ## IT WILL PASS THIS
+#     r = random.randint(1, 10)
+#   for i in range(r):
+#     random.seed(0)
+#     if random.randint(1, 10) > 3:
+#       number = random.randint(1, 10)
+#       if number not in mylist:
+#         mylist.append(number)
+#   print(mylist)
 
-def G():
-  random.seed(0)
-  mylist = []
-  r = 1
+# def G():
+#   random.seed(0)
+#   mylist = []
+#   r = 1
 
-  if random.random() > 0.99: ## IT WILL PASS THIS
-    r = random.randint(1, 10)
-  for i in range(r):
-    if random.randint(1, 10) > 3:
-      number = random.randint(1, 10)
-      mylist.append(number)
-      print(mylist)
+#   if random.random() > 0.99: ## IT WILL PASS THIS
+#     r = random.randint(1, 10)
+#   for i in range(r):
+#     if random.randint(1, 10) > 3:
+#       number = random.randint(1, 10)
+#       mylist.append(number)
+#       print(mylist)
 
-print(G())
+# print(G())
+
+#  ---
+
+one = []
+two = [1]
+three = [2]
+four = [10, 5 ,1]
+
+def greedySum(L, s):
+  """ input: s, positive integer, what the sum should add up to
+      L, list of unique positive integers sorted in descending order
+      Use the greedy approach where you find the largest multiplier for
+      the largest value in L then for the second largest, and so on to
+      solve the equation s = L[0]*m_0 + L[1]*m_1 + ... + L[n-1]*m_(n-1)
+      return: the sum of the multipliers or "no solution" if greedy approach does
+      not yield a set of multipliers such that the equation sums to 's'
+  """
+  multList = [0 for _ in range(len(L))]
+  tempS = s
+
+  for index, num in enumerate(L):
+    multiplier = multList[index]
+
+    while (num * (multiplier + 1)) <= tempS:
+      multiplier += 1
+    multList[index] = multiplier
+    tempS -= num * multiplier
+
+  if tempS == 0:
+    return sum(multList)
+  else:
+    return "no solution"
+
+print(greedySum([16, 12, 5, 3, 1], 15))
+
