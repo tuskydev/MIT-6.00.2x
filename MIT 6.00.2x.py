@@ -400,22 +400,27 @@ def solve(s):
   counter = [0, 0, 0, 0]
 
   if tempS // 25:
-    counter[0] += tempS // 25
-    tempS = tempS - 25
+    multiplier = tempS // 25
+    counter[0] += multiplier
+    tempS -= 25 * multiplier
 
   if tempS // 10:
-    counter[1] += tempS // 10
-    tempS = tempS - 10
+    multiplier = tempS // 10
+    counter[1] += multiplier
+    tempS -= 10 * multiplier
 
   if tempS // 5:
-    counter[2] += tempS // 5
-    tempS = tempS - 5
+    multiplier = tempS // 5
+    counter[2] += multiplier
+    tempS -= 5 * multiplier
 
-  print("STOP WHAT IS THIS?", tempS)
   if tempS // 1:
-    counter[3] += tempS // 1
-    tempS = tempS - 1
+    multiplier = tempS // 1
+    counter[3] += multiplier
+    tempS -= 1 * multiplier
 
   return counter
 
-print(solve(25))
+print(solve(22))
+
+#  ---
