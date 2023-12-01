@@ -425,28 +425,37 @@
 
 #  ---
 
-def solveit(test):
-    source_lines = []
-    try:
-        # Try to open the source file and read the lines
-        with open(test.__code__.co_filename, 'r') as source_file:
-            source_lines = source_file.readlines()
-    except Exception as e:
-        print(f"Error reading source file: {e}")
+# def solveit(test):
+#     source_lines = []
+#     try:
+#         # Try to open the source file and read the lines
+#         with open(test.__code__.co_filename, 'r') as source_file:
+#             source_lines = source_file.readlines()
+#     except Exception as e:
+#         print(f"Error reading source file: {e}")
 
-    # Print the source code
-    print(f"The source code of {test.__name__} is:")
-    for line in source_lines:
-        print(line.strip())
+#     # Print the source code
+#     print(f"The source code of {test.__name__} is:")
+#     for line in source_lines:
+#         print(line.strip())
 
 
 
-#### This test case prints 49 ####
-def f(x):
-  return (x+15)**0.5 + x**0.5 == 15
-print(solveit(f))
+# #### This test case prints 49 ####
+# def f(x):
+#   return (x+15)**0.5 + x**0.5 == 15
+# print(solveit(f))
 
-#### This test case prints 0 ####
-def f(x):
-  return x == 0
-print(solveit(f))
+# #### This test case prints 0 ####
+# def f(x):
+#   return x == 0
+# print(solveit(f))
+
+#  ---
+
+newL = [1, 2, 3]
+
+for n in newL:
+  for i in newL:
+    print(n,i)
+
