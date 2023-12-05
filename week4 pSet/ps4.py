@@ -52,7 +52,7 @@ class Climate(object):
         for line in f:
             items = line.strip().split(',')
 
-            date = re.match('(\d\d\d\d)(\d\d)(\d\d)', items[header.index('DATE')])
+            date = re.match(r'(\d\d\d\d)(\d\d)(\d\d)', items[header.index('DATE')])
             year = int(date.group(1))
             month = int(date.group(2))
             day = int(date.group(3))
@@ -111,11 +111,13 @@ class Climate(object):
         assert day in self.rawdata[city][year][month], "provided day is not available"
         return self.rawdata[city][year][month][day]
 
-
-
 """
 End helper code
 """
+
+
+
+
 
 # Problem 1
 def generate_models(x, y, degs):
@@ -130,8 +132,13 @@ def generate_models(x, y, degs):
         a list of numpy arrays, where each array is a 1-d array of coefficients
         that minimizes the squared error of the fitting polynomial
     """
-    # TODO
-    pass
+    listOfLists = []
+    for deg in degs:
+        coefficients = np.polyfit(x, y, deg)
+        listOfLists.append(coefficients)
+    return listOfLists
+
+print(generate_models([1961, 1962, 1963],[4.4,5.5,6.6],[1, 2]))
 
 # Problem 2
 def r_squared(y, estimated):
@@ -176,18 +183,18 @@ def evaluate_models_on_training(x, y, models):
 raw_data = Climate('data.csv')
 
 # Problem 3
-y = []
-x = INTERVAL_1
-for year in INTERVAL_1:
-    y.append(raw_data.get_daily_temp('BOSTON', 1, 10, year))
-models = generate_models(x, y, [1])
-evaluate_models_on_training(x, y, models)
+# y = []
+# x = INTERVAL_1
+# for year in INTERVAL_1:
+#     y.append(raw_data.get_daily_temp('BOSTON', 1, 10, year))
+# models = generate_models(x, y, [1])
+# evaluate_models_on_training(x, y, models)
 
 
 # Problem 4: FILL IN MISSING CODE TO GENERATE y VALUES
-x1 = INTERVAL_1
-x2 = INTERVAL_2
-y = []
-# MISSING LINES
-models = generate_models(x, y, [1])
-evaluate_models_on_training(x, y, models)
+# x1 = INTERVAL_1
+# x2 = INTERVAL_2
+# y = []
+# # MISSING LINES
+# models = generate_models(x, y, [1])
+# evaluate_models_on_training(x, y, models)
