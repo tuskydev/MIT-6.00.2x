@@ -138,7 +138,7 @@ def generate_models(x, y, degs):
         listOfLists.append(coefficients)
     return listOfLists
 
-print(generate_models([1961, 1962, 1963],[4.4,5.5,6.6],[1, 2]))
+# print(generate_models([1961, 1962, 1963],[4.4,5.5,6.6],[1, 2]))
 
 # Problem 2
 def r_squared(y, estimated):
@@ -150,8 +150,21 @@ def r_squared(y, estimated):
     Returns:
         a float for the R-squared error term
     """
-    # TODO
-    pass
+    error = 0.0
+    meanError = 0.0
+    mu = sum(y)/len(y)
+
+    for index, yVal in enumerate(y):
+        error += (yVal - estimated[index])**2
+    for index, yVal in enumerate(y):
+        meanError += (yVal- mu)**2
+
+    return 1 - (error/meanError)
+
+print(r_squared([-3.1, -4.1, -9.2, 10.1], [-2.1, -6.1, 9.2, 20.1]))
+
+# print(r_squared([4.4, 5.5, 6.6], [4.4, 5.5, 6.6]))
+print(r_squared([32.0, 42.0, 31.3, 22.0, 33.0], [32.3, 42.1, 31.2, 22.1, 34.0]))
 
 # Problem 3
 def evaluate_models_on_training(x, y, models):
