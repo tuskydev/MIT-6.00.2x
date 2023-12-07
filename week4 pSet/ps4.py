@@ -161,10 +161,9 @@ def r_squared(y, estimated):
 
     return 1 - (error/meanError)
 
-print(r_squared([-3.1, -4.1, -9.2, 10.1], [-2.1, -6.1, 9.2, 20.1]))
-
+# print(r_squared([-3.1, -4.1, -9.2, 10.1], [-2.1, -6.1, 9.2, 20.1]))
 # print(r_squared([4.4, 5.5, 6.6], [4.4, 5.5, 6.6]))
-print(r_squared([32.0, 42.0, 31.3, 22.0, 33.0], [32.3, 42.1, 31.2, 22.1, 34.0]))
+# print(r_squared([32.0, 42.0, 31.3, 22.0, 33.0], [32.3, 42.1, 31.2, 22.1, 34.0]))
 
 # Problem 3
 def evaluate_models_on_training(x, y, models):
@@ -188,20 +187,39 @@ def evaluate_models_on_training(x, y, models):
     Returns:
         None
     """
-    # TODO
-    pass
+    pylab.plot(x, y, c='b', marker='o', linestyle='None', label='Data Points')
+    pylab.title('Climate Model Evaluation')
+
+    for model in models:
+        # Generate y values for the model
+        y_model = np.polyval(model, x)
+
+        # Calculate R-squared
+        r_squared_value = r_squared(y, y_model)
+
+        # Plot the model
+        pylab.plot(x, y_model, label=f'Model (Degree {len(model) - 1}), R-squared: {r_squared_value:.4f}')
+
+    # Add labels and legend
+    pylab.xlabel('Year')
+    pylab.ylabel('Temperature')
+    pylab.title('Climate Model Evaluation')
+    pylab.legend()
+
+    pylab.show()
+    print('this is r^2 value', r_squared_value)
 
 
 ### Begining of program
 raw_data = Climate('data.csv')
 
 # Problem 3
-# y = []
-# x = INTERVAL_1
-# for year in INTERVAL_1:
-#     y.append(raw_data.get_daily_temp('BOSTON', 1, 10, year))
-# models = generate_models(x, y, [1])
-# evaluate_models_on_training(x, y, models)
+y = []
+x = INTERVAL_1
+for year in INTERVAL_1:
+    y.append(raw_data.get_daily_temp('BOSTON', 1, 10, year))
+models = generate_models(x, y, [1])
+print(evaluate_models_on_training(x, y, models))
 
 
 # Problem 4: FILL IN MISSING CODE TO GENERATE y VALUES
