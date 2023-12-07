@@ -191,14 +191,15 @@ def evaluate_models_on_training(x, y, models):
     pylab.title('Climate Model Evaluation')
 
     for model in models:
+        # model = 'coefficients' i.e. 2x^2 + 3x + 1
         # Generate y values for the model
-        y_model = np.polyval(model, x)
+        yModel = np.polyval(model, x)
 
         # Calculate R-squared
-        r_squared_value = r_squared(y, y_model)
+        rSquaredValue = r_squared(y, yModel)
 
         # Plot the model
-        pylab.plot(x, y_model, label=f'Model (Degree {len(model) - 1}), R-squared: {r_squared_value:.4f}')
+        pylab.plot(x, yModel, label=f'Model (Degree {len(model) - 1}), R-squared: {rSquaredValue:.4f}')
 
     # Add labels and legend
     pylab.xlabel('Year')
@@ -207,25 +208,26 @@ def evaluate_models_on_training(x, y, models):
     pylab.legend()
 
     pylab.show()
-    print('this is r^2 value', r_squared_value)
+    print('this is r^2 value', rSquaredValue)
 
 
 ### Begining of program
 raw_data = Climate('data.csv')
 
 # Problem 3
-y = []
-x = INTERVAL_1
-for year in INTERVAL_1:
-    y.append(raw_data.get_daily_temp('BOSTON', 1, 10, year))
-models = generate_models(x, y, [1])
-print(evaluate_models_on_training(x, y, models))
+# y = []
+# x = INTERVAL_1
+# for year in INTERVAL_1:
+#     y.append(raw_data.get_daily_temp('BOSTON', 1, 10, year))
+# models = generate_models(x, y, [1])
+# print(evaluate_models_on_training(x, y, models))
 
 
 # Problem 4: FILL IN MISSING CODE TO GENERATE y VALUES
-# x1 = INTERVAL_1
-# x2 = INTERVAL_2
-# y = []
-# # MISSING LINES
-# models = generate_models(x, y, [1])
-# evaluate_models_on_training(x, y, models)
+x1 = INTERVAL_1
+x2 = INTERVAL_2
+y = []
+for year in INTERVAL_1:
+    y.append(np.mean(raw_data.get_yearly_temp('BOSTON', year)))
+models = generate_models(x1, y, [1])
+evaluate_models_on_training(x1, y, models)
