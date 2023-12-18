@@ -453,9 +453,11 @@
 
 #  ---
 
-newL = [1, 2, 3]
+# newL = [1, 2, 3]
 
-for n in newL:
-  for i in newL:
-    print(n,i)
+# for n in newL:
+#   for i in newL:
+#     print(n,i)
+
+#  ---
 
