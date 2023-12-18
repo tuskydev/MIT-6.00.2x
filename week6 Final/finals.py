@@ -50,12 +50,31 @@ def lecture_activities(N, aLecture):
 
   Runs a Monte Carlo simulation N times.
   Returns: a tuple, (float, float)
-            Where the first float represents the mean number of lectures it takes 
+            Where the first float represents the mean number of lectures it takes
             to have a lecture in which all 3 activities take place,
-            And the second float represents the total width of the 95% confidence 
+            And the second float represents the total width of the 95% confidence
             interval around that mean.
   '''
-  # IMPLEMENT THIS FUNCTION
+  success = []
+  tries = 1
+
+  for _ in range(N):
+
+    if random.random() < aLecture.get_listen_prob() \
+            and random.random() < aLecture.get_sleep_prob() \
+            and random.random() < aLecture.get_fb_prob():
+      success.append(tries)
+      tries = 1
+    else:
+      tries += 1
+
+  # Calculate the total width for 95% interval around the mean
+  mean, std = get_mean_and_std(success)
+  Z = 1.96
+  width = Z*std*2
+
+  return (mean, width)
+
 
 
 # sample test cases
