@@ -13,6 +13,4 @@ yVals = pylab.array(yVals)
 wVals = pylab.array(wVals)
 xVals = xVals + xVals
 zVals = xVals + yVals
-
-pylab.plot()
-pylab.show()
+tVals = xVals + yVals + wVals
