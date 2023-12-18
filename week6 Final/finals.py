@@ -88,96 +88,150 @@
 
 #  ---
 
-import random, pylab
+# import random, pylab
 
 
-# You are given this function
-def getMeanAndStd(X):
-  mean = sum(X)/float(len(X))
-  tot = 0.0
-  for x in X:
-    tot += (x - mean)**2
-  std = (tot/len(X))**0.5
-  return mean, std
+# # You are given this function
+# def getMeanAndStd(X):
+#   mean = sum(X)/float(len(X))
+#   tot = 0.0
+#   for x in X:
+#     tot += (x - mean)**2
+#   std = (tot/len(X))**0.5
+#   return mean, std
 
-# You are given this class
-class Die(object):
-  def __init__(self, valList):
-    """ valList is not empty """
-    self.possibleVals = valList[:]
-  def roll(self):
-    return random.choice(self.possibleVals)
+# # You are given this class
+# class Die(object):
+#   def __init__(self, valList):
+#     """ valList is not empty """
+#     self.possibleVals = valList[:]
+#   def roll(self):
+#     return random.choice(self.possibleVals)
 
-# Implement this -- Coding Part 1 of 2
-def makeHistogram(values, numBins, xLabel, yLabel, title=None):
+# # Implement this -- Coding Part 1 of 2
+# def makeHistogram(values, numBins, xLabel, yLabel, title=None):
+#   """
+#   - values, a sequence of numbers
+#   - numBins, a positive int
+#   - xLabel, yLabel, title, are strings
+#   - Produces a histogram of values with numBins bins and the indicated labels
+#     for the x and y axis
+#   - If title is provided by caller, puts that title on the figure and otherwise
+#     does not title the figure
+#   """
+#   if title:
+#     pylab.title(title)
+
+#   pylab.hist(values, numBins)
+#   pylab.xlabel(xLabel)
+#   pylab.ylabel(yLabel)
+#   pylab.show()
+
+# # Personal test case
+# # makeHistogram([1,2], 4, "Aaa", "Bbb")
+
+# # Implement this -- Coding Part 2 of 2
+# def getAverage(die, numRolls, numTrials):
+#   """
+#   - die, a Die
+#   - numRolls, numTrials, are positive ints
+#   - Calculates the expected mean value of the longest run of a number
+#     over numTrials runs of numRolls rolls
+#   - Calls makeHistogram to produce a histogram of the longest runs for all
+#     the trials. There should be 10 bins in the histogram
+#   - Choose appropriate labels for the x and y axes.
+#   - Returns the mean calculated
+#   """
+#   results = []
+#   for _ in range(numTrials):
+#     currTrial = []
+#     longestCurrStreak = []
+#     highestStreak = 0
+
+#     # Rolling dice for one trial
+#     for _ in range(numRolls):
+#       currTrial.append(die.roll())
+
+#     # Indexing longest streak
+#     for index, roll in enumerate(currTrial):
+#       if len(longestCurrStreak) == 0:
+#         longestCurrStreak.append(roll)
+#         longestCurrStreak.append(1)
+#         highestStreak = longestCurrStreak[1]
+#         continue
+#       # Same roll in a row
+#       if longestCurrStreak[0] == roll:
+#         longestCurrStreak[1] += 1
+#       # New roll, and check if the longestCurrStreak is higher than highestStreak
+#       else:
+#         if highestStreak < longestCurrStreak[1]:
+#           highestStreak = longestCurrStreak[1]
+#         longestCurrStreak[0] = roll
+#         longestCurrStreak[1] = 1
+#       # Edge case where we're still on a streak but loop ends
+#       if index+1 == len(currTrial):
+#         if highestStreak < longestCurrStreak[1]:
+#           highestStreak = longestCurrStreak[1]
+
+#     results.append(highestStreak)
+
+#   makeHistogram(results, 10, "Length of Longest Run", "Frequency", "Highest streak for dice roll experimentation")
+
+#   return sum(results)/float(len(results))
+
+
+# # One test case
+# # print(getAverage(Die([1,2,3,4,5,6,6,6,7]), 500, 10000))
+# print(getAverage(Die([1,2,3,4,5,6,6,6,7]), 1, 1000))
+
+#  ---
+
+import numpy as np
+
+def find_combination(choices, total):
   """
-  - values, a sequence of numbers
-  - numBins, a positive int
-  - xLabel, yLabel, title, are strings
-  - Produces a histogram of values with numBins bins and the indicated labels
-    for the x and y axis
-  - If title is provided by caller, puts that title on the figure and otherwise
-    does not title the figure
+  choices: a non-empty list of ints
+  total: a positive int
+
+  Returns result, a numpy.array of length len(choices)
+  such that
+    * each element of result is 0 or 1
+    * sum(result*choices) == total
+    * sum(result) is as small as possible
+  In case of ties, returns any result that works.
+  If there is no result that gives the exact total,
+  pick the one that gives sum(result*choices) closest
+  to total without going over.
   """
-  if title:
-    pylab.title(title)
+  num_choices = len(choices)
 
-  pylab.hist(values, numBins)
-  pylab.xlabel(xLabel)
-  pylab.ylabel(yLabel)
-  pylab.show()
+  # Generate all possible binary combinations
+  binary_combinations = [np.array(list(bin(i)[2:].zfill(num_choices)), dtype=int) for i in range(2**num_choices)]
 
-# Personal test case
-# makeHistogram([1,2], 4, "Aaa", "Bbb")
+  # Filter combinations that satisfy the sum condition
+  valid_combinations = [comb for comb in binary_combinations if np.sum(comb * choices) == total]
 
-# Implement this -- Coding Part 2 of 2
-def getAverage(die, numRolls, numTrials):
-  """
-  - die, a Die
-  - numRolls, numTrials, are positive ints
-  - Calculates the expected mean value of the longest run of a number
-    over numTrials runs of numRolls rolls
-  - Calls makeHistogram to produce a histogram of the longest runs for all
-    the trials. There should be 10 bins in the histogram
-  - Choose appropriate labels for the x and y axes.
-  - Returns the mean calculated
-  """
-  results = []
-  for _ in range(numTrials):
-    currTrial = []
-    longestCurrStreak = []
-    highestStreak = 0
+  print(valid_combinations)
+  # if not valid_combinations:
+  #   # If there is no exact match, find the closest sum without going over
+  #   closest_sum = 0
+  #   closest_combination = None
 
-    # Rolling dice for one trial
-    for _ in range(numRolls):
-      currTrial.append(die.roll())
+  #   for comb in binary_combinations:
+  #     current_sum = np.sum(comb * choices)
+  #     if current_sum <= total and current_sum >= closest_sum:
+  #       closest_sum = current_sum
+  #       closest_combination = comb
 
-    # Indexing longest streak
-    for index, roll in enumerate(currTrial):
-      if len(longestCurrStreak) == 0:
-        longestCurrStreak.append(roll)
-        longestCurrStreak.append(1)
-        if len(currTrial) == 1:
-          if highestStreak < longestCurrStreak[1]:
-            highestStreak = longestCurrStreak[1]
-        continue
-      # Same roll in a row
-      if longestCurrStreak[0] == roll:
-        longestCurrStreak[1] += 1
-      # New roll, and check if the longestCurrStreak is higher than highestStreak
-      else:
-        if highestStreak < longestCurrStreak[1]:
-          highestStreak = longestCurrStreak[1]
-        longestCurrStreak[0] = roll
-        longestCurrStreak[1] = 1
+  #   return closest_combination
 
-    results.append(highestStreak)
+  # # Sort valid combinations based on the sum of 1s (smallest sum first)
+  # valid_combinations.sort(key=lambda x: np.sum(x))
 
-  makeHistogram(results, 10, "Length of Longest Run", "Frequency", "Highest streak for dice roll experimentation")
+  # # Return the one with the smallest sum
+  # return valid_combinations[0]
 
-  return sum(results)/float(len(results))
-
-
-# One test case
-# print(getAverage(Die([1,2,3,4,5,6,6,6,7]), 500, 10000))
-print(getAverage(Die([1,2,3,4,5,6,6,6,7]), 1, 1000))
+# Test cases
+print(find_combination([1,2,2,3], 4))  # [1 0 0 1] or [0 1 1 0]
+print(find_combination([1,1,3,5,3], 5))  # [0 0 0 1 0]
+print(find_combination([1,1,1,9], 4))  # [1 1 1 0]
