@@ -260,16 +260,20 @@ def rabbitGrowth():
   """
   # you need this line for modifying global variables
   global CURRENTRABBITPOP
+  newRabbitPop = CURRENTRABBITPOP
+  for _ in range(CURRENTRABBITPOP):
+    # Rabbit may reproduce
+    if random.random() < 1- (CURRENTRABBITPOP / MAXRABBITPOP):
+      newRabbitPop += 1
 
-  # TO DO
-  pass
+  CURRENTRABBITPOP = newRabbitPop
 
 def foxGrowth():
   """
   foxGrowth is called once at the end of each time step.
 
   It makes use of the global variables: CURRENTFOXPOP and CURRENTRABBITPOP,
-    and both may be modified by this procedure.
+  and both may be modified by this procedure.
 
   Each fox, based on the probabilities in the problem statement, may eat
   one rabbit (but only if there are more than 10 rabbits).
@@ -284,8 +288,17 @@ def foxGrowth():
   global CURRENTRABBITPOP
   global CURRENTFOXPOP
 
-  # TO DO
-  pass
+  for _ in range(CURRENTFOXPOP):
+    # Fox may eat rabbit
+    if random.random() < CURRENTRABBITPOP / MAXRABBITPOP and CURRENTRABBITPOP > 10:
+      CURRENTRABBITPOP -= 1
+      # Fox may reproduce
+      if random.random() <= 1/3:
+        CURRENTFOXPOP += 1
+    else:
+      # Fox may die
+      if random.random() <= 1/10 and CURRENTFOXPOP > 10:
+        CURRENTFOXPOP -= 1
 
 def runSimulation(numSteps):
   """
@@ -298,7 +311,16 @@ def runSimulation(numSteps):
 
   Both lists should be `numSteps` items long.
   """
+  rabbit_populations = []
+  fox_populations = []
 
-  # TO DO
-  pass
+  for _ in range(numSteps):
+    rabbitGrowth()
+    foxGrowth()
 
+    rabbit_populations.append(CURRENTRABBITPOP)
+    fox_populations.append(CURRENTFOXPOP)
+
+  return (rabbit_populations, fox_populations)
+
+print(runSimulation(5))
