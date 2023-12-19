@@ -323,4 +323,18 @@ def runSimulation(numSteps):
 
   return (rabbit_populations, fox_populations)
 
-print(runSimulation(5))
+rabbit, fox = runSimulation(200)
+
+pylab.plot(range(len(rabbit)), rabbit)
+pylab.plot(range(len(fox)), fox)
+
+# Rabbit polyfit curve
+coeff = pylab.polyfit(range(len(rabbit)), rabbit, 2)
+pylab.plot(pylab.polyval(coeff, range(len(rabbit))))
+
+# Fox polyfit curve
+coeff = pylab.polyfit(range(len(fox)), fox, 2)
+pylab.plot(pylab.polyval(coeff, range(len(fox))))
+
+
+pylab.show()
