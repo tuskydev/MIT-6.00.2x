@@ -186,52 +186,119 @@
 
 #  ---
 
-import numpy as np
+# import numpy as np
 
-def find_combination(choices, total):
+# def find_combination(choices, total):
+#   """
+#   choices: a non-empty list of ints
+#   total: a positive int
+
+#   Returns result, a numpy.array of length len(choices)
+#   such that
+#     * each element of result is 0 or 1
+#     * sum(result*choices) == total
+#     * sum(result) is as small as possible
+#   In case of ties, returns any result that works.
+#   If there is no result that gives the exact total,
+#   pick the one that gives sum(result*choices) closest
+#   to total without going over.
+#   """
+#   num_choices = len(choices)
+
+#   # Generate all possible binary combinations
+#   binary_combinations = [np.array(list(bin(i)[2:].zfill(num_choices)), dtype=int) for i in range(2**num_choices)]
+
+#   # Filter combinations that satisfy the sum condition
+#   valid_combinations = [comb for comb in binary_combinations if np.sum(comb * choices) == total]
+
+#   if not valid_combinations:
+#     # If there is no exact match, find the closest sum without going over
+#     closest_sum = 0
+#     closest_combination = None
+
+#     for comb in binary_combinations:
+#       current_sum = np.sum(comb * choices)
+#       if current_sum <= total and current_sum >= closest_sum:
+#         closest_sum = current_sum
+#         closest_combination = comb
+
+#     return closest_combination
+
+#   # Sort valid combinations based on the sum of 1s (smallest sum first)
+#   valid_combinations.sort(key=lambda x: np.sum(x))
+
+#   # Return the one with the smallest sum
+#   return valid_combinations[0]
+
+# # Test cases
+# print(find_combination([1,2,2,3], 4))  # [1 0 0 1] or [0 1 1 0]
+# print(find_combination([1,1,3,5,3], 5))  # [0 0 0 1 0]
+# print(find_combination([1,1,1,9], 4))  # [1 1 1 0]
+
+# ---
+
+import random
+import pylab
+
+
+# Global Variables
+MAXRABBITPOP = 1000
+CURRENTRABBITPOP = 500
+CURRENTFOXPOP = 30
+
+def rabbitGrowth():
   """
-  choices: a non-empty list of ints
-  total: a positive int
+  rabbitGrowth is called once at the beginning of each time step.
 
-  Returns result, a numpy.array of length len(choices)
-  such that
-    * each element of result is 0 or 1
-    * sum(result*choices) == total
-    * sum(result) is as small as possible
-  In case of ties, returns any result that works.
-  If there is no result that gives the exact total,
-  pick the one that gives sum(result*choices) closest
-  to total without going over.
+  It makes use of the global variables: CURRENTRABBITPOP and MAXRABBITPOP.
+
+  The global variable CURRENTRABBITPOP is modified by this procedure.
+
+  For each rabbit, based on the probabilities in the problem set write-up,
+  a new rabbit may be born.
+  Nothing is returned.
   """
-  num_choices = len(choices)
+  # you need this line for modifying global variables
+  global CURRENTRABBITPOP
 
-  # Generate all possible binary combinations
-  binary_combinations = [np.array(list(bin(i)[2:].zfill(num_choices)), dtype=int) for i in range(2**num_choices)]
+  # TO DO
+  pass
 
-  # Filter combinations that satisfy the sum condition
-  valid_combinations = [comb for comb in binary_combinations if np.sum(comb * choices) == total]
+def foxGrowth():
+  """
+  foxGrowth is called once at the end of each time step.
 
-  print(valid_combinations)
-  # if not valid_combinations:
-  #   # If there is no exact match, find the closest sum without going over
-  #   closest_sum = 0
-  #   closest_combination = None
+  It makes use of the global variables: CURRENTFOXPOP and CURRENTRABBITPOP,
+    and both may be modified by this procedure.
 
-  #   for comb in binary_combinations:
-  #     current_sum = np.sum(comb * choices)
-  #     if current_sum <= total and current_sum >= closest_sum:
-  #       closest_sum = current_sum
-  #       closest_combination = comb
+  Each fox, based on the probabilities in the problem statement, may eat
+  one rabbit (but only if there are more than 10 rabbits).
 
-  #   return closest_combination
+  If it eats a rabbit, then with a 1/3 prob it gives birth to a new fox.
 
-  # # Sort valid combinations based on the sum of 1s (smallest sum first)
-  # valid_combinations.sort(key=lambda x: np.sum(x))
+  If it does not eat a rabbit, then with a 1/10 prob it dies.
 
-  # # Return the one with the smallest sum
-  # return valid_combinations[0]
+  Nothing is returned.
+  """
+  # you need these lines for modifying global variables
+  global CURRENTRABBITPOP
+  global CURRENTFOXPOP
 
-# Test cases
-print(find_combination([1,2,2,3], 4))  # [1 0 0 1] or [0 1 1 0]
-print(find_combination([1,1,3,5,3], 5))  # [0 0 0 1 0]
-print(find_combination([1,1,1,9], 4))  # [1 1 1 0]
+  # TO DO
+  pass
+
+def runSimulation(numSteps):
+  """
+  Runs the simulation for `numSteps` time steps.
+
+  Returns a tuple of two lists: (rabbit_populations, fox_populations)
+  where rabbit_populations is a record of the rabbit population at the
+  END of each time step, and fox_populations is a record of the fox population
+  at the END of each time step.
+
+  Both lists should be `numSteps` items long.
+  """
+
+  # TO DO
+  pass
+
